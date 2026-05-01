@@ -1,0 +1,332 @@
+@charset "UTF-8";
+
+/*-------*/
+/*common*/
+/*-------*/
+
+body {
+	align-items: center;
+	background-color: #fff9e6;
+	color: #292929;
+	font-size: 18px;
+	text-align: center;
+	background-color: #fff9e6;
+	margin: 0 auto;
+}
+
+/*-------*/
+/*header*/
+/*-------*/
+
+.header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0 24px;
+}
+
+.header_logo {
+	width: 250px;
+}
+
+.header_button {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: end;
+	gap: 48px;
+}
+
+
+/*-------*/
+/*main*/
+/*-------*/
+
+main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 36px;
+}
+
+h1 {
+	font-size: 38px;
+}
+
+h2 {
+	font-size: 24px;
+}
+
+.message {
+	font-weight: bold;
+	color: #ff8800;
+	text-align: center;
+}
+
+/*-------*/
+/*form*/
+/*-------*/
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	margin: 24px auto;
+	width: 600px;
+}
+
+.form_unsubscribe {
+	margin: 0 auto;
+}
+
+.input-wrap {
+	display: flex;
+	flex-direction: row;
+	gap: 24px;
+	justify-content: space-between;
+}
+
+.input-wrap_check {
+	justify-content: start;
+}
+
+
+.form_input {
+	width: 300px;
+	color: #292929;
+	border-radius: 0.5rem;
+	background-color: #fff9e6;
+}
+
+.form_input_date {
+    padding: 8px 24px;
+    margin-right: 24px;
+}
+
+.form_check {
+	width: 40px;
+	color: #292929;
+	border-radius: 0.5rem;
+	background-color: #fff9e6;
+	margin-left: 218px;
+	border: 2px solid #292929;
+}
+
+/*-------*/
+/*button*/
+/*-------*/
+
+.button_row {
+	display: flex;
+	flex-direction: row;
+	text-align: center;
+	align-items: center;
+	margin: 24px auto;
+	justify-content: center;
+	gap: 24px;
+}
+.button_row_unsubscribe {
+	margin: 24px auto 0;
+}
+
+
+.button_submit {
+	margin: 12px auto;
+	color: #fff9e6;
+	font-weight: bold;
+	background-color: #292929;
+	border: 2px solid #292929;
+	padding: 8px 0;
+	width: 288px;
+	transition: 0.3s;
+	border-radius: 0.5rem;
+}
+
+.button_submit:hover {
+	color: #292929;
+	background-color: #fff9e6;
+	border: 2px solid #292929;
+	transition: 0.3s;
+}
+
+.button_submit_small {
+	width: 70px;
+	margin: 0;
+	padding: 0;
+}
+
+.button_submit_large {
+	width: 600px;
+}
+
+.button_submit_blue {
+	background-color: #2008ff;
+	border-radius: 2rem;
+}
+
+.button_submit_impossible {
+	background-color: #fff9e6;
+	color: #292929;
+}
+.button_unsubscribe {
+	background-color: #fff9e6;
+	color: #ff8800;
+	border: 2px solid #ff8800;
+	margin: 0 auto;
+}
+
+.button_list {
+	padding: 0 24px;
+	color: #fff9e6;
+	background-color: #292929;
+	border: 1px solid #292929;
+	transition: 0.3s;
+	margin: 0 auto;
+	border-radius: 0.5rem;
+}
+
+.button_list:hover {
+	color: #292929;
+	background-color: #fff9e6;
+	transition: 0.3s;
+}
+
+.button_disabled {
+	color: #292929;
+	background-color: #fff9e6;
+	transition: 0.3s;
+}
+
+.button_row form {
+	margin: 0;
+}
+
+.button_small {
+	color: #fff9e6;
+	font-weight: bold;
+	background-color: #ff8800;
+	border: 2px solid #ff8800;
+	padding: 0;
+	border-radius: 3rem;
+	width: 180px;
+	height: 40px;
+	transition: 0.3s;
+	display: block;
+}
+
+.button_small:hover {
+	color: #ff8800;
+	background-color: #fff9e6;
+	transition: 0.3s;
+}
+
+.button_large {
+	/*	margin: 0 auto;	*/
+	color: #292929;
+	font-weight: bold;
+	background-color: #fff9e6;
+	border: 2px solid #292929;
+	width: 250px;
+	height: 250px;
+	transition: 0.3s;
+	border-radius: 0.5rem;
+	line-height: 250px;
+}
+
+.button_large:hover {
+	color: #fff9e6;
+	background-color: #292929;
+	transition: 0.3s;
+}
+
+/*-------*/
+/*table*/
+/*-------*/
+
+table {
+	margin: 0 auto;
+	text-align: left;
+	border: 1px solid #292929;
+}
+
+tr:first-child {
+	width: 1000px;
+}
+
+
+th {
+	width: 150px;
+	border: 1px solid #292929;
+	padding: 12px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+td {
+	width: 300px;
+	border: 1px solid #292929;
+	padding: 12px;
+	text-align: center;
+
+}
+
+.input_table {
+	width: 90vw;
+	margin: 0 auto;
+}
+
+.input_table tr {
+	text-align: center;
+}
+
+.input_table tr,
+.input_table td {
+	padding: 8px 0;
+}
+
+
+.list_table {
+	width: 90vw;
+}
+
+.input_th {
+	width: 500px;
+}
+
+.list_td_small {
+	width: 50px;
+	text-align: center;
+}
+
+.list_td_middle {
+	width: 70px;
+}
+
+.list_td_large {
+	width: 500px;
+}
+
+/*-------*/
+/*menu*/
+/*-------*/
+.menu_wrap {
+	display: flex;
+	flex-direction: row;
+	gap: 24px;
+	justify-content: center;
+	margin: 0 auto;
+}
+
+
+footer {
+	margin: 20px 0px 0px -10px;
+	padding: 10px;
+}
+
+/*-------*/
+/*hidden*/
+/*-------*/
+.hidden {
+	display: none;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>ぜひＡに相談を&#128233;</title>
+    <link rel="stylesheet" href="./CSS/A-style.css">
+    <link rel="icon" href="./images/favicon.ico">
+</head>
+
+<body id="top">
+    <!-- ヘッダー -->
+    <div class="a-top">
+        <a href=" index.html"><img src="./images/a-top.png" alt="Aさんの作業場"></a>
+    </div>
+    <div>
+        <nav class="nav">
+            <li><a href="index.html">Home&#127968;</a></li>
+            <li><a href="money.html">予算目安&#128091;</a></li>
+            <li><a href="career.html">経歴&#128188;</a></li>
+            <li><a href="consult.html">ご相談&#128232;</a></li>
+        </nav>
+    </div>
+    <!-- ヘッダーここまで -->
+    <div class="hero consult">
+        <h1 class="message" style="background-color:#08572d;">お問い合わせ</h1>
+    </div>
+    <!-- メイン -->
+    <main>
+        <form action="send.html" target="_blank">
+            <p><label for="subject">お名前<span style="color: red;">*</span></label><br>
+                <input type="text" name="subject" id="subject" placeholder="可能であれば、フルネームをお願いします。" required>
+            </p>
+            <p><label for="subject">返信用メールアドレス<span style="color: red;">*</span></label><br>
+                <input type="email" name="subject" id="subject" placeholder="XXX@example.com" required>
+            </p>
+            <p><label for="subject">連絡先</label><br>
+                <input type="text" name="subject" id="subject" placeholder="携帯電話番号等">
+            </p>
+            <p><label for="subject">お問い合わせの件名</label><br>
+                <input type="text" name="subject" placeholder="件名" id="subject">
+            </p>
+            <p><label for="message">お問い合わせ内容<span style="color: red;">*</span></label><br>
+                <textarea name="message" placeholder="お問い合わせ内容" id="message" required></textarea>
+            </p>
+            <p>
+                <label for="kind">個人情報の取り扱いへの同意<span style="color: red;">*</span></label><br>
+                <select class="select" name="kind" id="kind" required>
+                    <option value="">選択してください</option>
+                    <option value="2">同意する</option>
+                </select>
+            </p>
+            <p class="supplement"><strong>個人情報の取り扱いについて</strong><br>
+                この入力フォームで、ご提供いただく個人情報は、お問い合わせや、<br>ご相談を適切に受け付けて管理するために利用します。
+                <br>当個人情報を第三者に提供することはありません。
+            </p>
+            <p class="supplement"><span style="color: red;">*</span>の印がついている箇所は、入力が必須です。</p>
+            <p class="submit">
+                <input type="submit" value="&#x1F4E9;送信&#128233;">
+            </p>
+        </form>
+    </main>
+    <!-- メインここまで -->
+
+    <!-- フッター -->
+    <footer>
+        <div class="gotop">
+            <a href="#top"><img src="images/junp.png" alt="トップページへ戻る"></a>
+        </div>
+        <p class="copyright">Aさんの作業場</p>
+    </footer>
+    <!-- フッターここまで -->
+</body>
+
+</html>
