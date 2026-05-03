@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo</title>
+    <link rel="stylesheet" href="./CSS/todo.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="text-logo">🔙 TOP</a>
+    </header>
+
+    <a href="#" class="back-to-top">👆</a>
+    <!-- href="#"は、ページ先頭を指す -->
+
+    <div class="container">
+        <div class="top-bar">
+            <h1>ToDo</h1>
+            <button id="themeToggle">🌙</button>
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="taskInput" placeholder="タスクを入力">
+            <button id="addTask">追加</button>
+        </div>
+
+        <div class="controls">
+            <p id="taskCount">残り 0 件</p>
+
+            <select id="filter">
+                <option value="all">すべて</option>
+                <option value="active">未完了</option>
+                <option value="completed">完了</option>
+            </select>
+        </div>
+
+        <ul id="taskList"></ul>
+    </div>
+
+    <script src="js/todo.js"></script>
+</body>
+
+</html>

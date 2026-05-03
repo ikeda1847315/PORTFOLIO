@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📩</text></svg>">
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html" class="text-logo">← TOP</a>
+    </header>
+
+    <div class="container">
+        <h1>Contact</h1>
+
+        <form class="contact-form" id="contactForm">
+            <label for="name">お名前</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">メールアドレス</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">お問い合わせ内容</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit" class="btn">送信</button>
+        </form>
+
+        <div class="mail-icon-area">
+            <a href="mailto:yourmail@example.com?subject=お問い合わせ&body=⚠デモのメールアドレスなので、送信できません" class="mail-button">
+                📧 メールで問い合わせ
+            </a>
+        </div>
+
+    </div>
+
+    <script src="js/contact.js"></script>
+
+</body>
+
+</html>
