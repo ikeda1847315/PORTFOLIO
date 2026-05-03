@@ -43,7 +43,9 @@
 [HTMLファイル一式](https://github.com/ikeda1847315/PORTFOLIO/tree/main/HTML_INDIVIDUAL_EXERCISE)<br>
 <details>
 <summary>＜コメント＞</summary>
-教科書を手本に、作成。<br>
+生成AIを活用し、架空ゲームのLP、<br>
+問い合わせフォーム＆サンクスページ、<br>
+タスク管理アプリと、お天気検索アプリを作成。
 
 [GitHubPagesリンク](https://ikeda1847315.github.io/PORTFOLIO/HTML_INDIVIDUAL_EXERCISE/)
 </details> 
