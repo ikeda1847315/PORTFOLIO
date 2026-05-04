@@ -12,40 +12,35 @@ document.addEventListener("mousemove", (e) => {
 });
 
 const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+
+    entries.forEach((entry) => {
+
         if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-        } else {
+
             entry.target.classList.remove("show");
-        }
-    });
-}, {
-    threshold: 0.3
-});
 
-document.querySelectorAll(".about-content").forEach(el => {
-    observer.observe(el);
-});
-
-document.querySelectorAll(".image-card").forEach(el => {
-    observer.observe(el);
-});
-
-exploreBtn.addEventListener("click", () => {
-    aboutContent.classList.remove("show");
-
-    cards.forEach(card => {
-        card.classList.remove("show");
-    });
-
-    setTimeout(() => {
-        aboutContent.classList.add("show");
-
-        cards.forEach((card, index) => {
             setTimeout(() => {
-                card.classList.add("show");
-            }, index * 200);
-        });
+                entry.target.classList.add("show");
+            }, 50);
 
-    }, 400);
+        } else {
+
+            entry.target.classList.remove("show");
+
+        }
+
+    });
+
+}, {
+    threshold: 0.2
 });
+
+// 監視
+cards.forEach(card => observer.observe(card));
+observer.observe(aboutContent);
+
+const download = document.querySelector(".download");
+observer.observe(download);
+
+const heroTitle = document.querySelector(".hero h1");
+observer.observe(heroTitle);
