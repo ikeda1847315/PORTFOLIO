@@ -1,4 +1,4 @@
-[職業訓練校](https://intecs.ne.jp/education/training/summary/1)でのグループ演習を通じて、自身の担当部分の説明です。
+[職業訓練校](https://intecs.ne.jp/education/training/summary/1)でのグループ演習を通じて、自身の担当部分の説明や、個人作成したHTMLの紹介です。
 
 # Java
 [Daoファイル関連](https://github.com/ikeda1847315/PORTFOLIO/tree/main/JAVA_GROUP_EXERCISE/src/main/java/jp/co/sys/dao)<br>
@@ -28,17 +28,6 @@
 ◆Javadocを意識し、各説明文を作成した。
 </details> 
 
-# PHP
-[answer.phpファイル](https://github.com/ikeda1847315/PORTFOLIO/blob/main/PHP_GROUP_EXERCISE/pages/answer.php)<br>
-[データベースデータ関連](https://github.com/ikeda1847315/PORTFOLIO/tree/main/PHP_GROUP_EXERCISE/db/detabase)<br>
-<details>
-<summary>＜コメント＞</summary>
-初めてのグループ演習で、相手から受け取る通信、<br>
-こちらから送信する通信の把握・設定が難しかった。<br>
-また、生成AIを用いてコードを書いている為、<br>
-トレースを実施後、コメントを用い、説明文で挙動を説明する事を心がけた。
-</details> 
-
 # HTML
 [GitHubPagesリンク](https://ikeda1847315.github.io/PORTFOLIO/HTML_INDIVIDUAL_EXERCISE/)<br>
 [HTMLファイル一式](https://github.com/ikeda1847315/PORTFOLIO/tree/main/HTML_INDIVIDUAL_EXERCISE)<br>
@@ -58,4 +47,15 @@
   時間がかかったが、納得のいくものが作成できた。<br>
   尚、相対パスのフォルダ名に大文字・小文字が混在し、アップロード後に修正を要した。<br><br>
   各ページをトレースし、何をどう使ったのかまで、把握する為にコメントを追加していく予定です。
+</details> 
+
+# PHP
+[answer.phpファイル](https://github.com/ikeda1847315/PORTFOLIO/blob/main/PHP_GROUP_EXERCISE/pages/answer.php)<br>
+[データベースデータ関連](https://github.com/ikeda1847315/PORTFOLIO/tree/main/PHP_GROUP_EXERCISE/db/detabase)<br>
+<details>
+<summary>＜コメント＞</summary>
+初めてのグループ演習で、相手から受け取る通信、<br>
+こちらから送信する通信の把握・設定が難しかった。<br>
+また、生成AIを用いてコードを書いている為、<br>
+トレースを実施後、コメントを用い、説明文で挙動を説明する事を心がけた。
 </details> 
