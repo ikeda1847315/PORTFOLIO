@@ -40,12 +40,23 @@
 </details> 
 
 # HTML
+[GitHubPagesリンク](https://ikeda1847315.github.io/PORTFOLIO/HTML_INDIVIDUAL_EXERCISE/)<br>
 [HTMLファイル一式](https://github.com/ikeda1847315/PORTFOLIO/tree/main/HTML_INDIVIDUAL_EXERCISE)<br>
 <details>
 <summary>＜コメント＞</summary>
-生成AIを活用し、架空ゲームのLP、<br>
+生成AIを活用し、架空ゲーム「Carve Out」のLP、<br>
 問い合わせフォーム＆サンクスページ、<br>
 タスク管理アプリと、お天気検索アプリを作成。
-
-[GitHubPagesリンク](https://ikeda1847315.github.io/PORTFOLIO/HTML_INDIVIDUAL_EXERCISE/)
+--所感--
+  タスク管理アプリと、問い合わせフォームは、短い時間で問題なく作成できた。<br>
+  お天気検索アプリは、weatherCodesを指定からスイッチ方式に変更。<br>
+  
+  また、データ取得時間の初期表示が、UTC（世界標準時）であった為、<br>
+  日本のタイムゾーンに変更した。<br>
+  
+  架空ゲーム「Carve Out」のLPは、体感的なデザイン変更が多数あり、<br>
+  時間がかかったが、納得のいくものが作成できた。<br>
+  尚、相対パスのフォルダ名に大文字・小文字が混在し、アップロード後に修正を要した。<br>
+  
+  各ページをトレースし、何をどう使ったのかまで、把握する為にコメントを追加していく予定です。
 </details> 
