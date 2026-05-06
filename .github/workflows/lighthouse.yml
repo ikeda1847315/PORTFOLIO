@@ -34,4 +34,4 @@ jobs:
         run: npm install -g @lhci/cli
 
       - name: Run Lighthouse (game-lp only)
-        run: lhci autorun --collect.staticDistDir=./HTML_INDIVIDUAL_EXERCISE/game-lp.html --upload.target=temporary-public-storage
+        run: lhci autorun --collect.staticDistDir=./HTML_INDIVIDUAL_EXERCISE --upload.target=temporary-public-storage
