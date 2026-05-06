@@ -15,4 +15,4 @@ jobs:
         run: npm install -g @lhci/cli
 
       - name: Run Lighthouse
-        run: lhci autorun
+        run: lhci autorun --collect.staticDistDir=./HTML_INDIVIDUAL_EXERCISE
