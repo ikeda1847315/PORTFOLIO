@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="To-do list application demonstrating JavaScript task management features.">
     <title>ToDo</title>
     <link rel="stylesheet" href="css/todo.css">
     <link rel="icon"
@@ -32,6 +33,8 @@
         <div class="controls">
             <p id="taskCount">残り 0 件</p>
 
+            <label for="filter">表示切替</label>
+            <!-- Lighthouseで、説明ラベルがないと指摘 -->
             <select id="filter">
                 <option value="all">すべて</option>
                 <option value="active">未完了</option>
