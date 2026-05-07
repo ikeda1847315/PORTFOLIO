@@ -38,6 +38,11 @@ nav a {
     margin-left: 25px;
     color: white;
     text-decoration: none;
+    transition: color 0.2s;
+}
+
+nav a:hover {
+    color: #00f7ff;
 }
 
 /* ヒーロー */
@@ -118,18 +123,17 @@ nav a {
 }
 
 /* ボタン */
-.secondary-btn {
+.primary-btn {
     display: inline-block;
     padding: 15px 35px;
     margin: 10px;
     border-radius: 12px;
     text-decoration: none;
     font-weight: bold;
-}
-
-.secondary-btn {
     border: 2px solid #00f7ff;
     color: white;
+    /* background: rgba(0, 247, 255, 0.1); */
+    /* ボタンの背景 */
 }
 
 /* 浮遊カード */
@@ -137,25 +141,6 @@ nav a {
     transform-style: preserve-3d;
     transition: transform 0.15s ease;
 }
-
-/* floating animation と transform が競合
-.floating-card {
-    position: absolute;
-    bottom: 80px;
-    right: 80px;
-
-    z-index: 20;
-
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(18px);
-
-    padding: 25px;
-    border-radius: 20px;
-
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-
-    animation: float 4s ease-in-out infinite;
-} */
 
 /* セクション */
 .section {
@@ -352,19 +337,22 @@ html {
 
 /* 画面下部の構成 */
 .download {
-    background: linear-gradient(135deg, #08152f, #0e294f);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
     padding: 50px 20px 0;
     position: relative;
     height: 60vh;
     /* 画面の60% */
 
-    background-image: url("../images/download-b.webp");
-    background-size: auto 105%;
-    background-repeat: no-repeat;
-    background-position: center 10%;
-
-    justify-content: center;
-    padding-top: 50px;
+    background-image:
+        linear-gradient(135deg, rgba(8, 21, 47, 0.2), rgba(14, 41, 79, 0.2)),
+        url("../images/download-b.webp");
+    background-size: auto, auto 105%;
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center 10%;
 }
 
 /* 暗いオーバーレイ */
@@ -383,6 +371,7 @@ html {
 
 .download h2 {
     margin-bottom: 100px;
+    margin-top: -110px;
     font-size: 70px;
     letter-spacing: 3px;
 
@@ -410,4 +399,134 @@ footer {
     text-align: center;
     padding: 20px 10px;
     font-size: 14px;
+}
+
+/* レスポンシブ対応 */
+/* タブレット */
+@media (max-width: 768px) {
+
+    /* ヘッダー */
+    header {
+        padding: 15px 20px;
+    }
+
+    nav a {
+        margin-left: 15px;
+        font-size: 14px;
+    }
+
+    /* ヒーロー */
+    .hero h1 {
+        font-size: 50px;
+    }
+
+    /* フィーチャーカード */
+    .cards-overlap {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    /* ダウンロード */
+    .download h2 {
+        font-size: 42px;
+    }
+}
+
+/* スマホ */
+@media (max-width: 480px) {
+
+    /* ヘッダー */
+    nav {
+        display: none;
+        /* ハンバーガーメニューにする場合は非表示に */
+    }
+
+    /* ヒーロー */
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .description {
+        font-size: 16px;
+    }
+
+    /* ABOUTセクション */
+    .about-content h2 {
+        font-size: 36px;
+    }
+
+    .about-content p {
+        font-size: 18px;
+    }
+
+    /* ダウンロード */
+    .download h2 {
+        font-size: 32px;
+    }
+}
+
+/* ハンバーガーボタン */
+.hamburger {
+    display: none;
+    /* PCでは非表示 */
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 200;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: white;
+    transition: 0.3s;
+}
+
+/* ×ボタンのアニメーション */
+.hamburger.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 480px) {
+    .hamburger {
+        display: flex;
+        /* スマホで表示 */
+    }
+
+    nav {
+        display: none;
+        /* 初期状態は非表示 */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        z-index: 150;
+    }
+
+    nav.open {
+        display: flex;
+    }
+
+    nav a {
+        font-size: 24px;
+        margin: 0;
+    }
 }

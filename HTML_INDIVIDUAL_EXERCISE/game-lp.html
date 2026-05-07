@@ -24,9 +24,16 @@
             <a href="#features">Features</a>
             <a href="#download">Download</a>
         </nav>
+
+        <button class="hamburger" id="hamburger" aria-label="メニューを開く">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
     </header>
 
-    <section id="top" class="hero">
+    <section id="top" class="hero" aria-label="トップ">
         <div class="overlay"></div>
 
         <div class="hero-content">
@@ -35,13 +42,13 @@
             <p class="description">崩壊した未来都市を舞台に、運命を切り拓く</p>
 
             <div class="hero-buttons">
-                <a href="#download" class="secondary-btn">Play Now</a>
-                <a href="#about" class="secondary-btn">Explore</a>
+                <a href="#download" class="primary-btn">Play Now</a>
+                <a href="#about" class="primary-btn">Explore</a>
             </div>
         </div>
     </section>
 
-    <section id="about" class="about-hero">
+    <section id="about" class="about-hero" aria-label="ゲーム概要">
         <div class="about-overlay"></div>
 
         <div class="about-content">
@@ -53,7 +60,7 @@
         </div>
     </section>
 
-    <section id="features" class="cards-overlap">
+    <section id="features" class="cards-overlap" aria-label="特徴">
         <div class="image-card">
             <img src="images/world.webp" alt="Open World">
             <div class="card-overlay">
@@ -79,16 +86,16 @@
         </div>
     </section>
 
-    <section id="download" class="section download">
+    <section id="download" class="section download" aria-label="ダウンロード">
         <h2>JOIN THE FUTURE</h2>
-        <a href="#" class="secondary-btn">PARTICIPATE</a>
+        <a href="#" class="primary-btn">PARTICIPATE</a>
     </section>
-
-    <script src="js/game-lp.js"></script>
 
     <footer>
         &copy; 2026 All Rights Reserved.
     </footer>
+
+    <script src="js/game-lp.js"></script>
 </body>
 
 </html>

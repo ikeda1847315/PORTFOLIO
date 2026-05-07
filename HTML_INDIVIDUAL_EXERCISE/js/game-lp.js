@@ -1,41 +1,15 @@
-const card = document.querySelector(".floating-card");
-const exploreBtn = document.querySelector(".secondary-btn");
 const aboutContent = document.querySelector(".about-content");
 const cards = document.querySelectorAll(".image-card");
 
-document.addEventListener("mousemove", (e) => {
-    const x = (window.innerWidth / 2 - e.pageX) / 30;
-    const y = (window.innerHeight / 2 - e.pageY) / 30;
-
-    card.style.transform =
-        `rotateY(${x}deg) rotateX(${-y}deg)`;
-});
-
 const observer = new IntersectionObserver((entries) => {
-
     entries.forEach((entry) => {
-
         if (entry.isIntersecting) {
-
-            entry.target.classList.remove("show");
-
-            setTimeout(() => {
-                entry.target.classList.add("show");
-            }, 50);
-
-        } else {
-
-            entry.target.classList.remove("show");
-
+            entry.target.classList.add("show");
+            observer.unobserve(entry.target);
         }
-
     });
+}, { threshold: 0.2 });
 
-}, {
-    threshold: 0.2
-});
-
-// 監視
 cards.forEach(card => observer.observe(card));
 observer.observe(aboutContent);
 
@@ -44,3 +18,19 @@ observer.observe(download);
 
 const heroTitle = document.querySelector(".hero h1");
 observer.observe(heroTitle);
+
+// ハンバーガーメニュー
+const hamburger = document.getElementById("hamburger");
+const navMenu = document.getElementById("nav-menu");
+
+hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("open");
+    navMenu.classList.toggle("open");
+});
+
+navMenu.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+        hamburger.classList.remove("open");
+        navMenu.classList.remove("open");
+    });
+});
