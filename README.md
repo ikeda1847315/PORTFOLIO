@@ -62,3 +62,10 @@
 また、生成AIを用いてコードを書いている為、<br>
 トレースを実施後、コメントを用い、説明文で挙動を説明する事を心がけた。
 </details> 
+
+# GitHub Actions追加（2026/05/06）
+Pushした際、HTMLの評価をLighthouseで実行する。<br>
+game-lp.htmlのスコアが悪いため、今後はそちらをメインに改善予定。<br>
+　※[PageSpeed Insights](https://pagespeed.web.dev/?hl=ja)では、<br>
+ 　　デスクトップの測定は問題ないが、携帯電話がフルスコアでない。<br>
+　　レスポンシブ対応の設定を今後、追加予定。
