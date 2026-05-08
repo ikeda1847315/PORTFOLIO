@@ -16,8 +16,11 @@ observer.observe(aboutContent);
 const download = document.querySelector(".download");
 observer.observe(download);
 
+// 修正後：ページ読み込み直後に即座にshowを付ける
 const heroTitle = document.querySelector(".hero h1");
-observer.observe(heroTitle);
+setTimeout(() => {
+    heroTitle.classList.add("show");
+}, 100); // 少し待ってからアニメーション開始
 
 // ハンバーガーメニュー
 const hamburger = document.getElementById("hamburger");
