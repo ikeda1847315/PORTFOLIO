@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Game landing page project featuring responsive design and interactive UI.">
     <title>Carve Out</title>
-    <link rel="preload" as="image" href="images/hero.webp" fetchpriority="high">
-    <!-- LCP（表示速度）改善の為、トップ画像の読み込み優先指定 -->
     <link rel="stylesheet" href="css/game-lp.css">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☄️</text></svg>">
@@ -34,16 +32,17 @@
     </header>
 
     <section id="top" class="hero" aria-label="トップ">
+        <img src="images/hero.webp" alt="hero" class="hero-bg" fetchpriority="high" decoding="sync">
+        <!-- fetchpriorityは、画像の優先読み込み -->
         <div class="overlay"></div>
 
         <div class="hero-content">
             <p class="sub-title">NEXT GENERATION RPG</p>
             <h1>Carve Out</h1>
             <p class="description">崩壊した未来都市を舞台に、運命を切り拓く</p>
-
             <div class="hero-buttons">
                 <a href="#download" class="primary-btn">Play Now</a>
-                <a href="#about" class="primary-btn">Explore</a>
+                <a href="#about" class="secondary-btn">Explore</a>
             </div>
         </div>
     </section>

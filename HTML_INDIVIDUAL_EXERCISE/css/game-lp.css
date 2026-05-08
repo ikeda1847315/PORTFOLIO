@@ -49,14 +49,24 @@ nav a:hover {
 .hero {
     position: relative;
     height: 100vh;
-
-    background:
-        url("../images/hero.webp") center/cover no-repeat;
-
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.overlay {
+    z-index: 1;
+    /* hero-bgの上に重なるよう確認 */
 }
 
 .overlay {
