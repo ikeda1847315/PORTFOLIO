@@ -16,11 +16,15 @@ observer.observe(aboutContent);
 const download = document.querySelector(".download");
 observer.observe(download);
 
-// 修正後：ページ読み込み直後に即座にshowを付ける
+// ページ読み込み直後に、タイトルへ即座にshowを付ける
 const heroTitle = document.querySelector(".hero h1");
-setTimeout(() => {
-    heroTitle.classList.add("show");
-}, 100); // 少し待ってからアニメーション開始
+if (heroTitle) {
+    // heroTitleがnullだとエラーなので、念のための分岐
+    setTimeout(() => {
+        heroTitle.classList.add("show");
+    }, 100);
+    // 少し待って（100ms）から、アニメーション開始
+}
 
 // ハンバーガーメニュー
 const hamburger = document.getElementById("hamburger");

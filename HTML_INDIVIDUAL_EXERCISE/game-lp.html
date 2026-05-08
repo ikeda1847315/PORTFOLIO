@@ -14,16 +14,16 @@
 <body>
 
     <header>
-        <a href="index.html" class="logo">🔙</a>
+        <a href="index.html" class="logo" aria-label="トップページへ戻る">🔙</a>
 
-        <nav id="nav-menu">
+        <nav id="nav-menu" aria-label="メインナビゲーション">
             <a href="#top">Top</a>
             <a href="#about">About</a>
             <a href="#features">Features</a>
             <a href="#download">Download</a>
         </nav>
 
-        <button class="hamburger" id="hamburger" aria-label="メニューを開く">
+        <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-expanded="false" aria-controls="nav-menu">
             <span></span>
             <span></span>
             <span></span>
@@ -32,7 +32,8 @@
     </header>
 
     <section id="top" class="hero" aria-label="トップ">
-        <img src="images/hero.webp" alt="hero" class="hero-bg" fetchpriority="high" decoding="sync">
+        <img src="images/hero.webp" alt="hero" class="hero-bg" fetchpriority="high" decoding="async">
+        <!-- 画像処理において、fetchpriority="high" でネットワーク通信を優先、decoding="async"で、別スレッドでデコードし、メインスレッドをブロックしない挙動にする事で、LCP（最大コンテンツ描画）に有利 -->
         <!-- fetchpriorityは、画像の優先読み込み -->
         <div class="overlay"></div>
 

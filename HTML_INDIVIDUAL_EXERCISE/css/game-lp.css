@@ -1,7 +1,12 @@
+/* 全体の設定 */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -62,11 +67,6 @@ nav a:hover {
     height: 100%;
     object-fit: cover;
     z-index: 0;
-}
-
-.overlay {
-    z-index: 1;
-    /* hero-bgの上に重なるよう確認 */
 }
 
 .overlay {
@@ -146,12 +146,6 @@ nav a:hover {
     /* ボタンの背景 */
 }
 
-/* 浮遊カード */
-.floating-card {
-    transform-style: preserve-3d;
-    transition: transform 0.15s ease;
-}
-
 /* セクション */
 .section {
     padding: 120px 20px;
@@ -161,28 +155,6 @@ nav a:hover {
 .section h2 {
     font-size: 42px;
     margin-bottom: 30px;
-}
-
-/* カード */
-.cards {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-}
-
-.card {
-    width: 280px;
-    padding: 35px;
-
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: translateY(-12px) scale(1.05);
 }
 
 /* about関連 */
@@ -241,30 +213,6 @@ nav a:hover {
     line-height: 1.8;
 }
 
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes float {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-15px);
-    }
-}
-
 .cards-overlap {
     position: relative;
     margin-top: -50px;
@@ -298,7 +246,7 @@ nav a:hover {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: 0.4s;
+    transition: transform 0.4s ease;
 }
 
 .image-card::after {
@@ -330,19 +278,15 @@ nav a:hover {
     color: #d1d5db;
 }
 
-.image-card:hover {
-    filter: brightness(1.2);
-    box-shadow: 0 30px 80px rgba(255, 255, 255, 0.2);
-    transform: translateY(-15px) scale(1.03);
-}
-
 .image-card.show {
     opacity: 1;
     transform: translateY(0);
 }
 
-html {
-    scroll-behavior: smooth;
+.image-card.show:hover {
+    filter: brightness(1.2);
+    box-shadow: 0 30px 80px rgba(255, 255, 255, 0.2);
+    transform: translateY(-15px) scale(1.03);
 }
 
 /* 画面下部の構成 */
@@ -449,7 +393,7 @@ footer {
     /* ヘッダー */
     nav {
         display: none;
-        /* ハンバーガーメニューにする場合は非表示に */
+        /* ハンバーガーメニューなので、初期値は非表示*/
     }
 
     /* ヒーロー */
@@ -516,8 +460,6 @@ footer {
     }
 
     nav {
-        display: none;
-        /* 初期状態は非表示 */
         position: fixed;
         top: 0;
         left: 0;
