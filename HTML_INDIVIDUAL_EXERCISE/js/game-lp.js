@@ -29,6 +29,9 @@ const navMenu = document.getElementById("nav-menu");
 hamburger.addEventListener("click", () => {
     hamburger.classList.toggle("open");
     navMenu.classList.toggle("open");
+
+    const isOpen = hamburger.classList.contains("open");
+    hamburger.setAttribute("aria-label", isOpen ? "メニューを閉じる" : "メニューを開く");
 });
 
 navMenu.querySelectorAll("a").forEach(link => {
