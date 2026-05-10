@@ -1,27 +1,8 @@
-# name: Lighthouse Audit
-
-# on:
-#   push:
-#     branches: [main]
-
-# jobs:
-#   lighthouse:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - uses: actions/checkout@v4
-
-#       - name: Install Lighthouse CI
-#         run: npm install -g @lhci/cli
-
-#       - name: Run Lighthouse
-#         run: lhci autorun --collect.staticDistDir=./HTML_INDIVIDUAL_EXERCISE --upload.target=temporary-public-storage
-
 name: Lighthouse Audit
 
 on:
-  push:
-    branches: [main]
+  # 手動実行を有効にする設定
+  workflow_dispatch:
 
 jobs:
   lighthouse:
@@ -30,8 +11,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Install Lighthouse CI
         run: npm install -g @lhci/cli
 
-      - name: Run Lighthouse (game-lp only)
-        run: lhci autorun --collect.staticDistDir=./HTML_INDIVIDUAL_EXERCISE --upload.target=temporary-public-storage
+      - name: Run Lighthouse (All HTML files)
+        run: |
+          lhci autorun \
+            --collect.staticDistDir=./HTML_INDIVIDUAL_EXERCISE \
+            --upload.target=temporary-public-storage
