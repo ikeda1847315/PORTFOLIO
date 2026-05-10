@@ -22,29 +22,56 @@
     <div class="container">
         <div class="top-bar">
             <h1>ToDo</h1>
-            <button id="themeToggle">🌙</button>
+            <button id="themeToggle" aria-label="ダークモード切替"> ダーク🌙</button>
         </div>
 
         <div class="input-area">
             <input type="text" id="taskInput" placeholder="タスクを入力">
-            <button id="addTask">追加</button>
+            <button id="addTask">＋ 追加</button>
         </div>
+        <p id="errorMsg">タスクを入力してください</p>
 
         <div class="controls">
-            <p id="taskCount">残り 0 件</p>
 
-            <label for="filter">表示切替</label>
-            <!-- Lighthouseで、説明ラベルがないと指摘 -->
-            <select id="filter">
-                <option value="all">すべて</option>
-                <option value="active">未完了</option>
-                <option value="completed">完了</option>
-            </select>
+            <!-- 1行目：残り〇件と表示切替をまとめる -->
+            <div class="controls-top">
+                <p id="taskCount">残り <span id="taskCountNum">0</span> 件</p>
+                <div class="filter-group">
+                    <label for="filter">表示切替</label>
+                    <select id="filter">
+                        <option value="all">すべて</option>
+                        <option value="active" selected>未完了</option>
+                        <option value="completed">完了</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 2行目：チェックボックス -->
+            <div class="delete-confirm-toggle">
+                <label for="skipConfirm">
+                    <input type="checkbox" id="skipConfirm">
+                    削除時に確認しない
+                </label>
+            </div>
+
         </div>
 
         <ul id="taskList"></ul>
-    </div>
 
+        <div id="deleteModal" class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <div class="modal-icon">🗑️</div>
+                    <p class="modal-title">タスクを削除しますか？</p>
+                </div>
+                <div id="modalMessage" class="modal-message"></div>
+                <div class="modal-buttons">
+                    <button id="modalCancel">キャンセル</button>
+                    <button id="modalConfirm" class="delete-btn">削除する</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="js/todo.js"></script>
 </body>
 

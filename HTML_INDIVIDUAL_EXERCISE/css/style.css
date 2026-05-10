@@ -14,18 +14,26 @@ header {
     position: relative;
 }
 
-section {
+article {
     padding: 40px;
     max-width: 800px;
-    margin: auto;
+    margin: 20px auto;
     background: white;
-    margin-top: 20px;
     border-radius: 10px;
 }
 
 h2 {
     border-bottom: 2px solid #ddd;
     padding-bottom: 10px;
+}
+
+h2 a {
+    color: #df5601;
+    text-decoration: none;
+}
+
+h2 a:hover {
+    text-decoration: underline;
 }
 
 /* 上部に戻るアイコン設定 */
@@ -37,7 +45,7 @@ h2 {
     width: 50px;
     height: 50px;
 
-    background: #4f46e5;
+    background: #018667;
     color: white;
     text-decoration: none;
 
@@ -62,4 +70,28 @@ footer {
     padding: 20px;
     font-size: 16px;
     color: #555;
+}
+
+/* スマートフォン向け（画面幅600px以下） */
+@media (max-width: 600px) {
+    header {
+        padding: 20px;
+    }
+
+    article {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    .back-to-top {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        bottom: 15px;
+        right: 15px;
+    }
 }

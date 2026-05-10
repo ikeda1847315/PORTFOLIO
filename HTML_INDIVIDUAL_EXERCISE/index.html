@@ -21,38 +21,40 @@
         <p>生成AIを活用したサイト作成</p>
     </header>
 
-    <a href="#" class="back-to-top">👆</a>
-    <!-- href="#"は、ページ先頭を指す -->
+    <a href="#" class="back-to-top" aria-label="ページ先頭へ戻る">👆</a>
+    <!-- href="#"は、ページ先頭を指す
+     スクリーンリーダー対象なので、aria-labelで、アクセシビリティが向上 -->
 
-    <section>
+    <article>
+        <!-- sectionはページの章立てに、articleは独立したコンテンツに使う -->
         <h2><a href="game-lp.html">架空ゲームのLP</a></h2>
         <p>架空ゲーム「Carve Out」のLPです。<br>
             荒廃した近未来都市をイメージし、JavaScriptを用い、<br>
             動的なページを作成。
         </p>
-    </section>
+    </article>
 
-    <section>
+    <article>
         <h2><a href="contact.html">入力フォームページ</a></h2>
         <p>HTML/CSSを用いた問い合わせフォーム。<br>
             レスポンシブ対応の入力フォームと、<br>
             メーラー起動機能を実装。</p>
-    </section>
+    </article>
 
-    <section>
+    <article>
         <h2><a href="todo.html">JavaScriptを活用したToDoアプリ</a></h2>
         <p>JavaScriptを用いたタスク管理アプリ。<br>
             LocalStorageによるデータ保存、フィルター機能、<br>
             ダークモード切替を実装。</p>
-    </section>
+    </article>
 
-    <section>
+    <article>
         <h2><a href="weather.html">JavaScriptを活用したお天気アプリ</a></h2>
         <p>JavaScriptを用いた天気情報取得アプリ。<br>
             Open-Meteo APIを活用し、都市検索機能、<br>
             現在の気温・風速・天気状態の表示、<br>
             データ取得情報の機能を実装。</p>
-    </section>
+    </article>
 
     <footer>
         &copy; 2026 All Rights Reserved.
