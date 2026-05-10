@@ -95,3 +95,8 @@ footer {
         right: 15px;
     }
 }
+
+/* モバイル画面の確認方法（PCのChrome）
+F12 キーでDevToolsを開く
+左上のスマホアイコン📱をクリック
+画面上部のドロップダウンから iPhone SE や iPad を選んで確認 */

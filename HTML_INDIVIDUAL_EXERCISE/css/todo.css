@@ -357,4 +357,29 @@ body.dark input::placeholder {
         上記のbuttonで、設定されるが、アイコンだけ上書きする*/
         width: auto;
     }
+
+    li {
+        /* タスクアイテムを縦並びに変更 */
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .task-text {
+        /* タスクテキストを全幅表示 */
+        width: 100%;
+        word-break: break-all;
+    }
+
+    .action-buttons {
+        /* ボタンを右寄せ・全幅に */
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .action-buttons button {
+        /* 編集・削除ボタンは幅を均等に */
+        flex: 1;
+    }
 }
