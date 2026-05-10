@@ -11,7 +11,14 @@ async function getCoordinates(city) {
     const data = await response.json();
 
     if (!data.results) {
-        throw new Error("都市が見つかりません");
+        throw new Error("都市が見つかりません。");
+        // getWeather の catch へ連携
+        //         ↓
+        // error.message として受け取る
+        //         ↓
+        // p1.textContent = error.message
+        //         ↓
+        //   画面に表示　※error.message が空だった場合の保険の表示設定
     }
 
     return data.results[0];
@@ -72,10 +79,10 @@ function getWindAlert(speed) {
 
 async function getWeather() {
     const city = cityInput.value.trim();
-
     if (!city) return;
+    searchBtn.disabled = true;
 
-    weatherResult.innerHTML = "読み込み中...";
+    weatherResult.textContent = "読み込み中...";
 
     try {
         const location = await getCoordinates(city);
@@ -92,16 +99,38 @@ async function getWeather() {
             .replace("T", " ")
             .replace(/-/g, "/");
 
+        weatherResult.innerHTML = ""; // 一旦クリア
+        // createElementをする事で、もしAPIが
+        // 悪意ある値を返した場合でも、ただの表示になる（XSS対策）
 
-        weatherResult.innerHTML = `
-        <h2>${location.name}</h2>
-        <p>${getWeatherDescription(weather.weathercode)}</p>
-        <p>🌡️ 気温: ${weather.temperature}℃</p>
-        <p>💨 風速: ${weather.windspeed} km/h［${getWindAlert(weather.windspeed)}］</p>
-        <p>🕒 取得データ情報：${formattedTime}</p>
-`;
+        const h2 = document.createElement("h2");
+        h2.textContent = location.name;
+
+        const p1 = document.createElement("p");
+        p1.textContent = getWeatherDescription(weather.weathercode);
+
+        const p2 = document.createElement("p");
+        p2.textContent = `🌡️ 気温： ${weather.temperature}℃`;
+
+        const p3 = document.createElement("p");
+        p3.textContent = `💨 風速： ${weather.windspeed} km/h［${getWindAlert(weather.windspeed)}］`;
+
+        const p4 = document.createElement("p");
+        p4.textContent = `🕒 取得データ情報：${formattedTime}`;
+
+        weatherResult.append(h2, p1, p2, p3, p4);
     } catch (error) {
-        weatherResult.innerHTML = "都市が見つかりません";
+        weatherResult.replaceChildren(); // クリア
+
+        const p1 = document.createElement("p");
+        p1.textContent = error.message || "サイトからデータを取得できませんでした";
+
+        const p2 = document.createElement("p");
+        p2.textContent = "英語で試してみてください（例：Tokyo）";
+
+        weatherResult.append(p1, p2);
+    } finally {
+        searchBtn.disabled = false;
     }
 }
 

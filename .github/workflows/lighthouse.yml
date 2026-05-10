@@ -1,7 +1,8 @@
 name: Lighthouse Audit
 
 on:
-  # 手動実行を有効にする設定
+#   push:
+#     branches: [main]　から、手動実行を有効にする設定へ変更
   workflow_dispatch:
 
 jobs:
@@ -24,3 +25,5 @@ jobs:
           lhci autorun \
             --collect.staticDistDir=./HTML_INDIVIDUAL_EXERCISE \
             --upload.target=temporary-public-storage
+# レポートの結果は、Google の一時的なサーバーにアップロードされる。
+# URLを知っている人は誰でも閲覧可能になる。（保存期間は数日間）

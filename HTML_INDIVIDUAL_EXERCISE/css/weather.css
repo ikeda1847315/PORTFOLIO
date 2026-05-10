@@ -68,8 +68,7 @@ button {
         padding: 20px;
     }
 
-    .search-box,
-    .input-area {
+    .search-box {
         flex-direction: column;
     }
 
