@@ -4,6 +4,7 @@
 強調　**重要**
 引用　> 
 区切り線　---
+URL [GitHub](https://github.com/) ※直書でもOK
 
 表
 | 項目 | 内容 |
