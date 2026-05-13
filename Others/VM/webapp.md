@@ -2,12 +2,13 @@ Webアプリ公開に伴う、WindowsServerへのインストール<br>
 　共通：<br>
 - MySQL 8.0.46<br>
 - PostgreSQL 16.13
+　　※今後に利用
 
-##　Java：<br>
+## Java：<br>
 実機での状況<br>
 　　Eclipseと違い、WindowsServerプライベートIPアドレスや、<br>
 　　ポートの指定でないと、アクセスできず、戸惑った<br>
-<img width="800" height="300" alt="image" src="https://github.com/user-attachments/assets/c538cb5c-a6fb-4cb0-81cd-4b969e6ca5e3" /><br>
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/6affcfa2-a4f9-476a-b705-cb1d3d54859d" /><br>
 WindowsServerへのインストール<br>
 
 - OpenJDK 17.0.19（Temurin（Eclipse Adoptium））<br>
