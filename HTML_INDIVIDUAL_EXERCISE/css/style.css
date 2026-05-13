@@ -113,6 +113,20 @@ footer {
         padding: 20px;
     }
 
+    .github-return img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .github-return span {
+        font-size: 8px;
+    }
+
+    .github-return {
+        top: 4px;
+        left: 4px;
+    }
+
     article {
         padding: 20px;
         margin: 10px;
