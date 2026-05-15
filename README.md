@@ -63,7 +63,7 @@
 トレースを実施後、コメントを用い、説明文で挙動を説明する事を心がけた。
 </details> 
 
-# GitHub Actions追加（2026/05/06）
+# GitHub Actions追加　<img src="https://skillicons.dev/icons?i=githubactions" width="40">　（2026/05/06）
 Pushした際、HTMLの評価をLighthouseで実行する。<br>
 game-lp.htmlのスコアが悪いため、今後はそちらをメインに改善予定。<br>
 　※[PageSpeed Insights](https://pagespeed.web.dev/?hl=ja)では、<br>
