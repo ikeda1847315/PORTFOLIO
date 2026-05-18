@@ -42,12 +42,16 @@ DNSをWindows Serverに向ける ＝ Windows Serverに名前解決を依頼
 
 # memo
 CSV例：
-| カラム名     | 内容                    |
+|カラム名|内容 ・用途|
 | -------- | --------------------- |
 | UserName | ログインID（例：taro.yamada） |
-| Password | 初期パスワード               |
-| FullName | 表示名（例：山田 太郎）          |
-
+| Password | 初期パスワード  |
+| FullName | 表示名（例：山田 太郎） |
+|　今後　|  |
+|OU　|配置先OU　|
+|Department　|部署  |
+|Title　|役職  |
+|Mail　|メールアドレス  |
 
 登録例：
 | UserName | Password | FullName   |
