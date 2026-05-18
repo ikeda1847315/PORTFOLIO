@@ -41,6 +41,12 @@ DNSをWindows Serverに向ける ＝ Windows Serverに名前解決を依頼
 　⇒ADのDNSサーバー ＝ ドメインコントローラーのDNS
 
 # memo
+NAT、Host-Only、ブリッジは基本、IPで見分ける
+それ以外の特徴：
+　NAT　デフォルトゲートウェイあり
+　Host-Only　デフォルトゲートウェイなし
+　ブリッジ　実機と同じLAN
+
 CSV例：
 |カラム名|内容 ・用途|
 | -------- | --------------------- |
@@ -58,6 +64,7 @@ CSV例：
 | -------- | -------- | ---------- |
 | test01   | P@ss1234 | Test User1 |
 | test02   | P@ss1234 | Test User2 |
+
 
 
 一括削除
