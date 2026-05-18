@@ -1,3 +1,7 @@
+Oracle Virtual BoxにUbuntu Serverをインストール<br>
+また、Windows実機からのSSH接続環境を構築。
+練習を兼ねて、Windows ServerとのActive Directory連携を実施。
+
 ###　基本操作
 | 概念   | 意味             |
 | ---- | -------------- |
