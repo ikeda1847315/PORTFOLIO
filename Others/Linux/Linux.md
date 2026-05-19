@@ -10,6 +10,9 @@ Oracle Virtual BoxにUbuntu Serverをインストール<br>
 | `.`  | 現在のディレクトリ      |
 | `..` | 一つ上のディレクトリ     |
 
+sudo reboot　再起動
+exit　サインアウト
+sudo poweroff　シャットダウン
 
 ###　コマンド関連
 ```bash

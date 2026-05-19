@@ -47,7 +47,34 @@ NAT、Host-Only、ブリッジは基本、IPで見分ける
 　Host-Only　デフォルトゲートウェイなし
 　ブリッジ　実機と同じLAN
 
-CSV例：
+DHCP設定した後、UbuntuServerの場合、ip aでdynamicが出ているか。
+出てても、意図しないIPならcat /run/systemd/netif/leases/*で、
+どのアドレスか確認する
+    ADDRESS= XXX.XXX…　⇒自分自身に割り当てられたIPアドレス
+    SERVER_ADDRESS= XXX.XXX…　⇒DHCPサーバーのアドレス（どこからIP取得したか）
+    DOMAINNAME=　ドメイン名
+    DNS= XXX.XXX…　⇒どのDNSと接続し、名前解決しているか
+
+Windows11の場合、ipconfig /all
+Ethernet adapter Ethernet:
+   IPv4 Address. . : XXX.XXX…　⇒自分に割り当てられたIP
+   DHCP Enabled. . : Yes　　⇒DHCP取得
+   DHCP Server . . : XXX.XXX…　⇒どのDHCPから取得か
+   　※AD参加
+   Connection-specific DNS Suffix  . : ドメイン名
+   DNS Servers . . : XXX.XXX…　⇒どのDNSと接続し、名前解決しているか
+
+
+|略称 |意味 |
+|AD |Active Directory |
+|AD DS |Active Directory Domain Services |
+|DC |Domain Controller |
+|GPO |Group Policy Object|
+|OU	|Organizational Unit |
+|DHCP |Dynamic Host Configuration Protocol（IP配布）|
+|||
+
+CSV例：　
 |カラム名|内容 ・用途|
 | -------- | --------------------- |
 | UserName | ログインID（例：taro.yamada） |
@@ -65,9 +92,45 @@ CSV例：
 | test01   | P@ss1234 | Test User1 |
 | test02   | P@ss1234 | Test User2 |
 
+注意：
+Import-Csv は 1行目を「カラム名（ヘッダー）」として扱う。
 
+CSVファイル確認
+Import-Csv "フルパス"
+
+一括登録
+Import-Csv "フルパス" | ForEach-Object {
+
+    New-ADUser `
+        -Name $_.FullName `
+        -SamAccountName $_.UserName `
+        -UserPrincipalName "$($_.UserName)@ドメイン名" `
+        -AccountPassword (ConvertTo-SecureString $_.Password -AsPlainText -Force) `
+        -Enabled $true
+}
+
+
+対象ユーザー確認
+Import-Csv "フルパス" | ForEach-Object {
+    Get-ADUser $_.UserName
+}
+
+一括無効化
+Import-Csv "フルパス" | ForEach-Object {
+    Disable-ADAccount -Identity $_.UserName
+}
+
+無効化確認
+Import-Csv "フルパス" | ForEach-Object {
+    Get-ADUser $_.UserName -Properties Enabled |
+    Select Name, SamAccountName, Enabled
+}
+- EnabledがFalse
+他
+- 一覧でアカウントアイコンに⇓がつく
+- プロパティで「アカウントが無効」にチェック
 
 一括削除
-Import-Csv users.csv | ForEach-Object {
+Import-Csv "フルパス" | ForEach-Object {
     Remove-ADUser -Identity $_.UserName -Confirm:$false
 }
