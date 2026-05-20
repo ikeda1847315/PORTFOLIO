@@ -1,8 +1,8 @@
 Oracle Virtual BoxにUbuntu Serverをインストール<br>
-また、Windows実機からのSSH接続環境を構築。
-練習を兼ねて、Windows ServerとのActive Directory連携を実施。
+また、Windows実機からのSSH接続環境を構築。<br>
+練習を兼ねて、Windows ServerとのActive Directory連携を実施。<br>
 
-###　基本操作
+## 基本操作
 | 概念   | 意味             |
 | ---- | -------------- |
 | `/`  | ルートディレクトリ（最上位） |
@@ -10,21 +10,38 @@ Oracle Virtual BoxにUbuntu Serverをインストール<br>
 | `.`  | 現在のディレクトリ      |
 | `..` | 一つ上のディレクトリ     |
 
-sudo reboot　再起動
-exit　サインアウト
-sudo poweroff　シャットダウン
-
-###　コマンド関連
+再起動
 ```bash
-ファイル一覧操作：
+sudo reboot
+```
+サインアウト
+```bash
+exit　
+```
+シャットダウン
+```bash
+sudo poweroff　
+```
+<br>
+
+## コマンド関連
+### ファイル一覧操作：
+ファイル一覧
+```bash
 ls
-　ファイル一覧
+```
+ファイルの詳細一覧
+```bash
 ls -l
-　ファイルの詳細一覧
+```
+隠しファイル含めた一覧
+```bash
 ls -a
-　隠しファイル含めた一覧
+```
+結合パターン
+```bash
 ls -la
-　結合パターン
+```
 
 ディレクトリ移動操作（チェンジ ディレクトリ）：
 cd
@@ -166,5 +183,5 @@ show running-config
 | `show vlan brief`         | VLAN確認 |
 | `show interfaces`         | IF状態   |
 
-###　サイト
-(Bandit)[https://overthewire.org/wargames/bandit/]
+## 学習サイト
+[Bandit](https://overthewire.org/wargames/bandit)
