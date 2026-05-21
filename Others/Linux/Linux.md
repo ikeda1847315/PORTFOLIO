@@ -64,9 +64,9 @@ touch
 ```bash
 mkdir
 ```
-複数階層作成
+複数階層作成 ⇒親/子ディレクトリ
 ```bash
-mkdirmkdir -p　/
+mkdir -p /
 ```
 ファイルコピー
 例：頭（元）の内容で、<br>
@@ -79,14 +79,14 @@ cp
 ディレクトリコピー
 例：頭（元）の内容で、<br>
 後（先）を作成（コピー）<br>
--iまたは、iを付ける事で、確認オプション
+-riにする事で、確認オプション
 ```bash
 cp -r
 ```
 移動後に名前変更
-例：頭（元）の内容で、<br>
-後（先）を作成（コピー）存在する場合、上書き<br>
-また、元ファイルは消える<br>
+後（先）へ移動し改名する<br>
+存在する場合は、上書き<br>
+元ファイルは消える<br>
 -iを付ける事で、確認オプション
 ```bash
 mv
@@ -147,7 +147,7 @@ chmod
 | 7  | rwx |
 | 5  | r-x |
 | 4  | r-- |
-| 777  | フル権限 |
+| 777  | フル権限（通常は非推奨）|
 
 所有者変更<br>
 コマンド　所有者：グループ　対象ファイル
@@ -201,10 +201,6 @@ IP確認 ＝ ip addr
 ```bash
 ip a
 ```
-IP一覧
-```bash
-show ip interface brief
-```
 ルーティング確認 ＝ ip r
 ```bash
 ip route
@@ -228,10 +224,6 @@ curl
 ポート確認
 ```bash
 ss -tuln
-```
-インターフェース状態を表示（通信口の状態確認）
-```bash
-show interfaces
 ```
 ### 自分用：
 リモート接続（接続元のPCのPowerShellから）
@@ -263,9 +255,18 @@ configure terminal
 ```bash
 show running-config
 ```
+## Cisco系コマンド
+IP一覧
+```bash
+show ip interface brief
+```
 VLAN確認（1台のスイッチを論理的に分割する仕組み）
 ```bash
 show vlan brief
+```
+インターフェース状態を表示（通信口の状態確認）
+```bash
+show interfaces
 ```
 ## 学習サイト
 [Bandit](https://overthewire.org/wargames/bandit)
