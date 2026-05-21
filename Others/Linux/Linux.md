@@ -56,7 +56,7 @@ cd ..
 pwd
 ```
 ### ファイル・フォルダ操作関連：
-ファイル作成
+空ファイル作成
 ```bash
 touch
 ```
@@ -91,6 +91,14 @@ cp -r
 ```bash
 mv
 ```
+新規作成または、上書き
+```bash
+echo hello > test.txt
+```
+末尾へ追加
+```bash
+echo  >>
+```
 ファイル削除
 ```bash
 rm
@@ -104,7 +112,7 @@ rm -rf dirは、強制削除<br>
 さらに、rm -rf /は、全削除なので、要注意
 
 ### ファイル内容確認操作：
-内容表示
+ファイル内容を一気に表示
 ```bash
 cat
 ```
@@ -138,6 +146,31 @@ grep "error" app.log
 grep -i error app.log
 ```
 ### 権限変更操作：
+基本情報：<br>
+1文字目 = ファイル種類
+| 1文字目  | 意味        |
+| --- | --------- |
+| - | 普通のファイル（実行ファイル含）   |
+| d | ディレクトリ    |
+| l | シンボリックリンク<br>　※Linux版ショートカット|
+
+２文字目以降は、グループ等のrwx権限
+| ２文字目以降 | 対応数 | 意味（内容）|
+| -- | -- | -- |
+| r  | 4  | read（読み取り） |
+| w  | 2  | write（書き込み） |
+| x  | 1  | execute（実行 ）  |
+| -  |   | 権限なし  |
+
+参考例での分解した時の意味
+```text
+- rwx r-x r--
+│ │   │   │
+│ │   │   └ その他ユーザー
+│ │   └ グループ
+│ └ 所有者
+└ ファイル種別
+```
 権限変更
 ```bash
 chmod
@@ -147,8 +180,18 @@ chmod
 | 7  | rwx |
 | 5  | r-x |
 | 4  | r-- |
-| 777  | フル権限（通常は非推奨）|
+| 600  | rw-------<br>秘密鍵等 |
+| 644  | rw-r--r--<br>所有者：読み書き<br>他人：読むだけ |
+| 755 | rwxr-xr-x<br>スクリプト・実行ファイル実行権限 |
+| 777  | rwxrwxrwx<br>全開放（通常は非推奨）|
 
+　※Linuxでは、権限の対応数を足し算する
+```text
+例：
+7 = 4+2+1 = rwx
+5 = 4+1   = r-x
+5 = 4+1   = r-x
+```
 所有者変更<br>
 コマンド　所有者：グループ　対象ファイル
 ```bash
@@ -184,6 +227,10 @@ which python
 プロセス確認
 ```bash
 ps aux
+```
+ログ保存
+```bash
+ps aux >
 ```
 CPU/メモリ確認　⇒q　終了
 ```bash
@@ -243,18 +290,42 @@ code .
 man ls
 ls --help
 ```
-特権EXECモードへ入る　Router#に変更　>は通常モード
-```bash
-enable
-```
-設定モードへ入る　conf tでも可　Router(config)#に変更
-```bash
-configure terminal
-```
-現在動作中の設定確認 ⇒show runでも可
-```bash
-show running-config
-```
+
+nanoで編集
+nano test.txt
+nano 保存
+Ctrl + O
+nano 終了
+Ctrl + X
+vimで編集
+vim test.txt
+編集モード
+i
+保存して終了
+Esc → :wq
+強制終了（保存しない）
+Esc → :q!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Cisco系コマンド
 IP一覧
 ```bash
@@ -267,6 +338,18 @@ show vlan brief
 インターフェース状態を表示（通信口の状態確認）
 ```bash
 show interfaces
+```
+特権EXECモードへ入る　Router#に変更　>は通常モード
+```bash
+enable
+```
+設定モードへ入る　conf tでも可　Router(config)#に変更
+```bash
+configure terminal
+```
+現在動作中の設定確認 ⇒show runでも可
+```bash
+show running-config
 ```
 ## 学習サイト
 [Bandit](https://overthewire.org/wargames/bandit)
