@@ -25,7 +25,7 @@ sudo poweroff　
 <br>
 
 ## コマンド関連
-### ファイル一覧操作：
+### ◆ファイル一覧操作：
 ファイル一覧
 ```bash
 ls
@@ -42,7 +42,7 @@ ls -a
 ```bash
 ls -la
 ```
-### ディレクトリ移動操作（チェンジ ディレクトリ）：
+### ◆ディレクトリ移動操作（チェンジ ディレクトリ）：
 ホームへ戻る
 ```bash
 cd
@@ -55,7 +55,7 @@ cd ..
 ```bash
 pwd
 ```
-### ファイル・フォルダ操作関連：
+### ◆ファイル・フォルダ操作関連：
 空ファイル作成
 ```bash
 touch
@@ -111,7 +111,7 @@ rm -r
 rm -rf dirは、強制削除<br>
 さらに、rm -rf /は、全削除なので、要注意
 
-### ファイル内容確認操作：
+### ◆ファイル内容確認操作：
 ファイル内容を一気に表示
 ```bash
 cat
@@ -132,7 +132,7 @@ head
 ```bash
 tail
 ```
-### 検索操作：
+### ◆検索操作：
 ファイル検索
 ```bash
 find . -name "*.txt"
@@ -145,7 +145,7 @@ grep "error" app.log
 ```bash
 grep -i error app.log
 ```
-### 権限変更操作：
+### ◆権限変更操作：
 基本情報：<br>
 1文字目 = ファイル種類
 | 1文字目  | 意味        |
@@ -215,7 +215,35 @@ sudo apt full-upgrade
 ```bash
 sudo apt install
 ```
-### その他操作：
+### ◆その他操作：
+nanoで編集
+```bash
+nano test.txt
+```
+nano 保存
+```bash
+Ctrl + O
+```
+nano 終了
+```bash
+Ctrl + X
+```
+vimで編集
+```bash
+vim test.txt
+```
+編集モード
+```bash
+i
+```
+保存して終了
+```bash
+Esc → :wq
+```
+強制終了（保存しない）
+```bash
+Esc → :q!
+```
 リアルタイム確認
 ```bash
 tail -f app.log
@@ -272,7 +300,7 @@ curl
 ```bash
 ss -tuln
 ```
-### 自分用：
+### ◆自分用：
 リモート接続（接続元のPCのPowerShellから）
 ```powershell
 ssh アカウント名@IPアドレス
@@ -290,42 +318,6 @@ code .
 man ls
 ls --help
 ```
-
-nanoで編集
-nano test.txt
-nano 保存
-Ctrl + O
-nano 終了
-Ctrl + X
-vimで編集
-vim test.txt
-編集モード
-i
-保存して終了
-Esc → :wq
-強制終了（保存しない）
-Esc → :q!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Cisco系コマンド
 IP一覧
 ```bash
