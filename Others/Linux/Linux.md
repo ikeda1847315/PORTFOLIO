@@ -101,7 +101,7 @@ rm -r
 ```
 ⚠️<br>
 rm -rf dirは、強制削除<br>
-さらに、rm -rf /は、全削除なので、要注意<br>
+さらに、rm -rf /は、全削除なので、要注意
 
 ### ファイル内容確認操作：
 内容表示
@@ -147,88 +147,125 @@ chmod
 | 7  | rwx |
 | 5  | r-x |
 | 4  | r-- |
+| 777  | フル権限 |
 
-sudo chown user:user file.txt
-　所有者変更
+所有者変更<br>
+コマンド　所有者：グループ　対象ファイル
+```bash
+sudo chown　
+```
+最新のカタログを取得
+```bash
 sudo apt update
-　管理者権限実行
-sudo apt update
-　パッケージ情報更新
+```
+実際に、インストール済みソフトを、上記で取得した最新版へ、<br>
+安全に更新（他の要素に依存しない部分のみ）
+```bash
 sudo apt upgrade
-　アップデート
-sudo apt install nginx
-　インストール
-
-その他操作：
+```
+他の要素含め、必要なら追加・削除もして更新
+```bash
+sudo apt full-upgrade
+```
+　※sudo apt dist-upgradeと同義<br>
+インストール
+```bash
+sudo apt install
+```
+### その他操作：
+リアルタイム確認
+```bash
 tail -f app.log
-　リアルタイム確認
-
+```
+コマンドの場所確認
+```bash
 which python
-　コマンドの場所確認
+```
+プロセス確認
+```bash
 ps aux
-　プロセス確認
+```
+CPU/メモリ確認　⇒q　終了
+```bash
 top
-　CPU/メモリ確認　⇒q　終了
-
-sudo apt install htop
-　インストール
-htop
-　起動
-
+```
+ディスク容量
+```bash
 df -h
-　ディスク容量
+```
+メモリ確認
+```bash
 free -h
-　メモリ確認
-
+```
+IP確認 ＝ ip addr
+```bash
 ip a
-　IP確認　＝ip addr
+```
+IP一覧
+```bash
+show ip interface brief
+```
+ルーティング確認 ＝ ip r
+```bash
 ip route
-　ルーティング確認 ＝ip r
-
+```
+疎通確認（名前解決[DNS通信]できるか） ⇒Ctrl + C　停止
+```bash
 ping google.com
-　疎通確認（名前解決[DNS]できるか）　⇒Ctrl + C　停止
-　他、
-　ping 8.8.8.8　DNS不要で、外に通信できるか
-　ping 192.168.1.1　ルーターに届くか
-
+```
+DNS不要で、外に通信できるか ⇒IP指定で、どこまで通信できるかを確認
+```bash
+ping 8.8.8.8
+```
+DNS確認
+```bash
 cat /etc/resolv.conf
-　DNS確認
-
-curl https://example.com
-　HTTP・API確認
-
-ssh user@192.168.1.10
-　リモート接続
+```
+HTTP・API確認
+```bash
+curl
+```
+ポート確認
+```bash
 ss -tuln
-　ポート確認
-
-自分用：
+```
+インターフェース状態を表示（通信口の状態確認）
+```bash
+show interfaces
+```
+### 自分用：
+リモート接続（接続元のPCのPowerShellから）
+```powershell
+ssh アカウント名@IPアドレス
+```
+現在ディレクトリをVSCodeで開く
+```bash
 code .
-　現在ディレクトリをVSCodeで開く
-Ctrl + C
-　処理停止
-Ctrl + L
-　画面クリア
-Tab
-　補完（超重要）
+```
+補完（超重要）<br>
+<kbd>Tab</kbd><br>
+画面クリア<br>
+<kbd>Ctrl</kbd> + <kbd>L</kbd><br>
+ヘルプ確認 ⇒q 終了
+```bash
 man ls
 ls --help
-　ヘルプ確認　⇒q　終了
-
-
+```
+特権EXECモードへ入る　Router#に変更　>は通常モード
+```bash
 enable
-　# 特権EXECモードへ入る　Router#に変更　>は通常モード
+```
+設定モードへ入る　conf tでも可　Router(config)#に変更
+```bash
 configure terminal
-　# 設定モードへ入る　conf tでも可　Router(config)#に変更
+```
+現在動作中の設定確認 ⇒show runでも可
+```bash
 show running-config
-　# 現在動作中の設定確認　show runでも可
-
-| コマンド                   | 内容     |
-| ------------------------- | ------ |
-| `show ip interface brief` | IP一覧   |
-| `show running-config`     | 現在設定   |
-| `show vlan brief`         | VLAN確認 |
-| `show interfaces`         | IF状態   |
-
+```
+VLAN確認（1台のスイッチを論理的に分割する仕組み）
+```bash
+show vlan brief
+```
 ## 学習サイト
 [Bandit](https://overthewire.org/wargames/bandit)
