@@ -68,46 +68,80 @@ mkdir
 ```bash
 mkdirmkdir -p　/
 ```
-ファイルコピー例：file1の内容で、<br>
-file2を作成、存在する場合上書き
+ファイルコピー
+例：頭（元）の内容で、<br>
+後（先）を作成、存在する場合、上書き<br>
+尚、元ファイルは残る<br>
+-iを付ける事で、確認オプション
 ```bash
-cp file1.txt file2.txt
+cp
 ```
+ディレクトリコピー
+例：頭（元）の内容で、<br>
+後（先）を作成（コピー）<br>
+-iまたは、iを付ける事で、確認オプション
+```bash
+cp -r
+```
+移動後に名前変更
+例：頭（元）の内容で、<br>
+後（先）を作成（コピー）存在する場合、上書き<br>
+また、元ファイルは消える<br>
+-iを付ける事で、確認オプション
+```bash
+mv
+```
+ファイル削除
+```bash
+rm
+```
+ディレクトリ削除
+```bash
+rm -r
+```
+⚠️<br>
+rm -rf dirは、強制削除<br>
+さらに、rm -rf /は、全削除なので、要注意<br>
 
-cp -r dir1 dir2
-　ディレクトリコピー
-mv old.txt new.txt
-　移動後に名前変更
-rm test.txt
-　ファイル削除
-rm -r dir
-　ディレクトリ削除
-　⇒rm -rf dir　⚠️強制削除
-　　　⇒rm -rf /は、全削除なので、伝説級に危険💀
-
-ファイル内容確認操作：
-cat file.txt
-　内容表示
-less logfile.log
-　スクロールしながら閲覧
+### ファイル内容確認操作：
+内容表示
+```bash
+cat
+```
+スクロールしながら閲覧
+```bash
+less
+```
+閲覧終了
+```bash
 q
-　閲覧終了
-head file.txt
-　先頭へ
-tail file.txt
-　末尾へ
-
-検索操作：
+```
+先頭へ
+```bash
+head
+```
+末尾へ
+```bash
+tail
+```
+### 検索操作：
+ファイル検索
+```bash
 find . -name "*.txt"
-　ファイル検索
+```
+文字列検索
+```bash
 grep "error" app.log
-　文字列検索
+```
+大文字・小文字無視
+```bash
 grep -i error app.log
-　大文字・小文字無視
-
-権限変更操作：
-chmod 755 script.sh
-　権限変更
+```
+### 権限変更操作：
+権限変更
+```bash
+chmod
+```
 | 数字 | 権限  |
 | -- | --- |
 | 7  | rwx |
@@ -188,7 +222,6 @@ configure terminal
 　# 設定モードへ入る　conf tでも可　Router(config)#に変更
 show running-config
 　# 現在動作中の設定確認　show runでも可
-```
 
 | コマンド                   | 内容     |
 | ------------------------- | ------ |
