@@ -63,11 +63,13 @@
 トレースを実施後、コメントを用い、説明文で挙動を説明する事を心がけた。
 </details> 
 
-# GitHub Actions追加　<img src="https://skillicons.dev/icons?i=githubactions" width="40">　（2026/05/06）
-Pushした際、HTMLの評価をLighthouseで実行する。<br>
-game-lp.htmlのスコアが悪いため、今後はそちらをメインに改善予定。<br>
-　※[PageSpeed Insights](https://pagespeed.web.dev/?hl=ja)では、<br>
- 　　デスクトップの測定は問題ないが、携帯電話がフルスコアでない為、今後も回収予定。<br>
+# AWS（Udemy）　<img src="https://skillicons.dev/icons?i=aws" width="40"> <img src="https://img.shields.io/badge/-%20?style=for-the-badge&logo=Udemy&logoColor=white&color=%23A435F0" height="40" width="40">
+UdemyでのAWSのｅラーニング学習メモ<br>
+&nbsp;&nbsp;&nbsp;<a href="Others/AWS.md"><img src="https://img.shields.io/badge/MEMO-FCC624?style=for-the-badge" width="70" height="40"></a>
+
+# GitHub Actions　<img src="https://skillicons.dev/icons?i=githubactions" width="40">
+~~Pushした際~~ （手動実行へ変更）　HTMLの評価をLighthouseで実行する。<br>
+　※[PageSpeed Insights](https://pagespeed.web.dev/?hl=ja)も参考にする<br>
 
 # 環境構築
 　仮想マシン（ＶＭ）環境の構築として、Oracle VirtualBoxを<br>
