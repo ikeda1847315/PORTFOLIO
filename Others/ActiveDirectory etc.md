@@ -144,18 +144,18 @@ Print Spooler
 Windows Update
 IIS　等
 ```
-サービスが停止すると機能が利用できなくなる。
+サービスが停止すると機能が利用できなくなる。<br>
 サービス状態確認：
 ```PowerShell
 Get-Service
 ```
-Statusが「Running」は起動中
-例えば「Stopped」であれば、停止中
+Statusが「Running」は起動中<br>
+例えば「Stopped」であれば、停止中<br>
 サービス起動：
 ```PowerShell
 Start-Service
 ```
-Stoppedから、Runningに変われば起動
+Stoppedから、Runningに変われば起動<br>
 サービス停止：
 ```PowerShell
 Stop-Service
@@ -167,29 +167,30 @@ Restart-Service
 　⇒Stop-Serviceから、Start-Serviceと同義
 
 ### イベントログ
-Windowsの「監査ログ」
+Windowsの「監査ログ」<br>
 確認ツール（イベントビューアー）：
 ```cmd
 eventvwr.msc
 ```
-Application：アプリが落ちたなどを記録
-System：OS関連のサービス停止、ドライバ異常、ディスク障害等の記録
-Security：監査ログとして、ログオン成功、ログオン失敗、権限変更の記録
-
-情報 (Information)：正常動作
-警告 (Warning)：今は動いているが問題の兆候あり
-エラー (Error)：正常に処理できなかった
+Application：アプリが落ちたなどを記録<br>
+System：OS関連のサービス停止、ドライバ異常、ディスク障害等の記録<br>
+Security：監査ログとして、ログオン成功、ログオン失敗、権限変更の記録<br>
+```text
+情報 (Information)　：正常動作
+警告 (Warning)      ：今は動いているが問題の兆候あり
+エラー (Error)      ：正常に処理できなかった
+```
 
 ### タスクスケジューラ
-定期実行ジョブとして、自動実行機能がある
+定期実行ジョブとして、自動実行機能がある<br>
 ファイルバックアップや、バッチ処理等
 
 ### Windows Update
-OSの更新管理
-専用モジュール利用が一般的
+OSの更新管理<br>
+専用モジュール利用が一般的<br>
 
-WSUS（Windows Server Update Services）を利用するケースがある
-　⇒Microsoftへ接続せずに、WSUSサーバーへ接続し、更新取得する。
+WSUS（Windows Server Update Services）を利用するケースがある<br>
+　⇒Microsoftへ接続せずに、WSUSサーバーへ接続し、更新取得する。<br>
 　　通信量削減、更新配布管理、適用タイミング統制のメリット
 
 ### NTFS権限
@@ -214,13 +215,13 @@ WSUS（Windows Server Update Services）を利用するケースがある
 削除
 権限変更
 ```
-* 継承（Inheritance）
-親フォルダの権限を、子フォルダへ引き継ぐ（継承）仕組み
+* 継承（Inheritance）<br>
+親フォルダの権限を、子フォルダへ引き継ぐ（継承）仕組み<br>
 管理が楽だが、意図しない権限が、付与されていないか注意する。
 
 ### 共有フォルダ権限
-ユーザーがネットワーク経由でアクセスすると、
-共有権限 +NTFS権限の両方が、評価される。
+ユーザーがネットワーク経由でアクセスすると、<br>
+共有権限 +NTFS権限の両方が、評価される。<br>
 原則として、「より厳しい権限」が適用される
 ```text
 共有権限
@@ -237,66 +238,159 @@ NTFS権限
 ## ネットワーク基礎
 
 ### IPアドレス
-ネットワーク上の機器を識別するための住所
+ネットワーク上の機器を識別するための住所<br>
+同じネットワーク内ではIPアドレスが重複できない
+* プライベートIPアドレス（IPv4の構成）
+社内ネットワークなどで使用
 ```text
-192.168.1.10
+192.1XX.X.XX
+ ↑
+32bit　4つの数字で構成され、0～255の範囲
 ```
 
 ### サブネットマスク
+IPアドレスの「どこまでがネットワーク部分」か
+「どこからがホスト部分」かを示す。
 ```text
+IPアドレス
+192.168.1.10
+
+サブネットマスク
 255.255.255.0
 ```
+　⇒「192.168.1.」まで同じなら、同一ネットワーク
+
+* CIDR表記
+```text
+255.255.255.0 ＝ /24
+```
+| CIDR | サブネットマスク        |
+| ---- | --------------- |
+| /24  | 255.255.255.0   |
+| /25  | 255.255.255.128 |
+| /26  | 255.255.255.192 |
+| /27  | 255.255.255.224 |
+
 
 ### デフォルトゲートウェイ
+他ネットワークへ通信するときの出口<br>
+ゲートウェイが間違っていると、社内通信は<br>
+できるが、インターネット通信できない
 
 ### DNS
-名前解決
-google.com
-↓
-142.250.xxx.xxx
+名前解決とは、URLをIPアドレスへ変換する仕組み<br>
+google.com = 142.250.xxx.xxxへDNSで自動変換する。<br>
+　補足：
+```cmd
+nslookup google.com
+```
+Addresses:にあるIPでアクセスする事ができる。
 
-### 確認コマンド
+### DHCP（Dynamic Host Configuration Protocol）
+IPアドレスを自動配布する仕組み<br>
+　⇒動的ホスト構成プロトコル<br>
+　　ネットワーク機器に対して、IPアドレスやDNSサーバーなどの<br>
+　　ネットワーク設定を、自動配布するためのプロトコル（通信ルール）
+```text
+PC起動
+　↓
+DHCPサーバーへ要求
+　↓
+以下の情報等を自動取得
+IPアドレス
+サブネットマスク
+ゲートウェイ
+DNS
+```
+DHCPなしの場合、上記は手動設定が必要<br>
+管理もあるので、一般家庭レベルのルーターにもDHCPサーバー機能がある。
 
+## 無線LAN
+LANケーブルを使わず、電波で通信するネットワーク。
+```text
+PC
+ ↓
+Wi-Fi
+ ↓
+アクセスポイント
+ ↓
+ルーター
+ ↓
+インターネット
+```
+### SSID（Service Set Identifier）
+Wi-Fiのネットワーク名<br>
+スマホやPCで表示される「利用可能なネットワーク」の名前<br>
+ステルスSSIDの場合もある。<br><br>
+保存済みWi-Fi一覧：
+```cmd
+netsh wlan show profiles
+```
+接続済Wi-Fi：
+```cmd
+netsh wlan show interfaces
+```
+
+### WPA（Wi-Fi Protected Access）
+Wi-Fi通信を保護する暗号化方式<br>
+Wi-Fi保護アクセス
+* WPA3<br>
+WPA2の後継　現在はこちらが推奨
+```text
+より強力な暗号化
+辞書攻撃への耐性向上　
+```
+
+* WPA2<br>
+現在でも広く利用される暗号化方式
+```text
+AES暗号
+高い安全性
+多くの機器が対応
+```
+
+### 周波数帯
+
+* 2.4GHz
+特徴：
+```text
+遠くまで届く
+壁に強い
+速度は遅め
+```
+デメリットとして、家電と周波数が被る。<br>
+そのため干渉しやすい。
+
+* 5GHz
+特徴：
+```text
+高速
+安定
+干渉が少ない
+```
+デメリットは、壁に弱い為、遠くまで届きにくい
+
+### アクセスポイント(AP)<br>
+Wi-Fiの電波を出す機器。
+
+SSIDが見えない
+```cmd
+netsh wlan show networks
+```
+
+接続できない
+```cmd
+netsh wlan show interfaces
+```
+
+インターネットに繋がらない
 ```cmd
 ipconfig
 ```
 
-```cmd
-ping
+⇒ipconfigの出力結果で、確認する場所：
+```text
+IPv4 Address
+Default Gateway
+DNS Server
 ```
-
-```cmd
-nslookup
-```
-
-```cmd
-tracert
-```
-
-DHCP　IPアドレス自動配布
-
-## 無線LAN
-
-覚えること
-
-### SSID
-
-Wi-Fi名
-
-### WPA2
-
-暗号化
-
-### WPA3
-
-新しい暗号化
-
-SSID
-WPA2
-WPA3
-2.4GHz
-遠くまで届く
-障害物に強い
-5GHz
-高速
-干渉が少ない
