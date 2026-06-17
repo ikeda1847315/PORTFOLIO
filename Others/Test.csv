@@ -1,0 +1,5 @@
+version:v1.0
+Name [displayName] Required,User name [userPrincipalName] Required,Initial password [passwordProfile] Required,Block sign in (Yes/No) [accountEnabled] Required,First name [givenName],Last name [surname],Department [department],Job title [jobTitle]
+User01,user01@xxxxx.onmicrosoft.com,Password1!,No,Taro,Yamada,IT,Operator
+User02,user02@xxxxx.onmicrosoft.com,Password1!,No,Hanako,Suzuki,Sales,Staff
+User03,user03@xxxxx.onmicrosoft.com,Password1!,No,Ken,Tanaka,HR,Manager

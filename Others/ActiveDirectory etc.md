@@ -15,6 +15,13 @@ Microsoft Entra IDとは、Microsoftのユーザー管理システム<br>
 　▶オンプレミス：Active Directory<br>
 　▶クラウド：Microsoft Entra ID<br>
 
+概要に、以下の情報<br>
+名前<br>
+テナント ID<br>
+プライマリ ドメイン<br>
+ライセンス<br>
+　※自身は「Microsoft Entra ID Free」
+
 ### Azureの基本概念
 * テナントとは、会社専用の管理領域
 * ユーザーとグループ管理<br>
@@ -43,11 +50,122 @@ Microsoft Entra IDとは、Microsoftのユーザー管理システム<br>
 ```
 
 ### ユーザー管理
+csvは、プライマリドメインの修正と、日本語登録する場合を考え、<br>
+UTF-8（できれば UTF-8 BOM付き）で保存する
 
-* ユーザー作成
+#### ユーザー作成
+　一括作成：<br>
+Entra ID> ユーザー（全てのユーザー）>･･･の一括操作> 一括作成<br>
+　　⇒テンプレートは最新をダウンロードする<br>
+参考：[Microsoft Entra ID でユーザーを一括作成する](https://learn.microsoft.com/ja-jp/entra/identity/users/users-bulk-add?utm_source=chatgpt.com#understand-the-csv-template)
+
+PowerShellでのユーザー作成<br>
+　※Microsoft Graph PowerShell SDK インストール
+1. Microsoft Graph接続<br>
+
+前回のアカウント接続：
+```powershell
+Connect-MgGraph -Scopes User.ReadWrite.All
+```
+接続確認：
+```powershell
+Get-MgContext
+```
+⇒ユーザーの読み取りと書き込み（登録）権限でサインインしているか<br><br>
+別アカウント接続したい場合：
+```powershell
+Disconnect-MgGraph
+```
+※権限の一覧確認：
+```powershell
+(Get-MgContext).Scopes
+```
+| 権限                      | 内容        |
+| ----------------------- | --------- |
+| User.Read               | 自分を見る     |
+| User.Read.All           | 全ユーザー閲覧   |
+| User.ReadWrite.All      | ユーザー作成・変更 |
+| Group.Read.All          | グループ閲覧    |
+| Group.ReadWrite.All     | グループ変更    |
+| Directory.Read.All      | Entra情報参照 |
+| Directory.ReadWrite.All | Entra管理   |
+
+2. CSV確認
+```powershell
+Import-Csv .\XXX.csv
+```
+⇒読み取れるか
+```powershell
+Get-Content .\XXX.csv
+```
+⇒登録内容の確認
+
+3. CSVインポート（変数代入）
+```powershell
+$Users = Import-Csv C:\Users\User\Desktop\XXX.csv
+```
+⇒CSVの1行 = オブジェクト<br>
+　確認：
+```powershell
+$Users
+```
+⇒$Users[0]等で、1行単位で見れる。<br>
+　.Password等を後ろに加え、1セル単位も可能。
+
+4. 一括登録（拡張for文で回す）<br>
+　例：
+```powershell
+foreach ($User in $Users) {
+
+    $PasswordProfile = @{
+        Password = $User.Password
+        ForceChangePasswordNextSignIn = $true
+    }
+
+    New-MgUser `
+        -DisplayName $User.DisplayName `
+        -UserPrincipalName $User.UserPrincipalName `
+        -MailNickname ($User.UserPrincipalName.Split('@')[0]) `
+        -GivenName $User.GivenName `
+        -Surname $User.Surname `
+        -Department $User.Department `
+        -JobTitle $User.JobTitle `
+        -AccountEnabled `
+        -PasswordProfile $PasswordProfile
+
+    Write-Host "$($User.DisplayName) 作成完了"
+}
+```
+⇒Graph APIは、パスワード情報を、1つのオブジェクトとして渡す。<br>
+　その為、ハッシュテーブルを用い、1つの変数に格納する
+```powershell
+$PasswordProfile　@{ パスワード情報}
+```
+⇒ハッシュテーブル = キーと値のセット（JavaのMapに近い）<br>
+　なので、$PasswordProfile.Passwordで、値を確認できる。
+
 * パスワードリセット
 * ユーザー無効化 ⇒退職者等の対応
-* ユーザー削除
+#### ユーザー削除<br>
+ユーザー削除後も一定期間（30日）はゴミ箱に残る
+
+ユーザー削除：
+```powershell
+Remove-MgUser -UserId アカウント情報.onmicrosoft.com
+```
+⇒ -Confirm:$falseを後ろに付けると確認無し
+
+削除済ユーザー 一覧確認
+```powershell
+Get-MgDirectoryDeletedItemAsUser
+```
+
+復元
+```powershell
+Restore-MgDirectoryDeletedItem
+```
+⇒DirectoryObjectId:に、復元したい「Id」を入力
+
 * グループ作成
 * グループへのユーザー追加
 
