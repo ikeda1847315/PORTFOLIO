@@ -144,8 +144,6 @@ $PasswordProfile　@{ パスワード情報}
 ⇒ハッシュテーブル = キーと値のセット（JavaのMapに近い）<br>
 　なので、$PasswordProfile.Passwordで、値を確認できる。
 
-* パスワードリセット
-* ユーザー無効化 ⇒退職者等の対応
 #### ユーザー削除<br>
 ユーザー削除後も一定期間（30日）はゴミ箱に残る
 
@@ -166,26 +164,233 @@ Restore-MgDirectoryDeletedItem
 ```
 ⇒DirectoryObjectId:に、復元したい「Id」を入力
 
-* グループ作成
-* グループへのユーザー追加
+#### グループ作成
+基礎として、以下は、オンプレミスADに多い管理
+```text
+OU
+ ↓
+ユーザーを入れる
+ ↓
+グループ　
+```
+
+Entraでは以下のフローになる
+```text
+ユーザー
+ ↓　作成
+グループ
+ ↓　グループ作成
+ ↓  グループへユーザー追加
+ ↓　グループ所有者設定
+ロール
+ ↓　管理者権限等の付与（管理者ロール割り当て）
+アプリ
+ ↓　エンタープライズアプリ確認
+権限
+　　アクセス制御（アプリの使用可否）
+　　条件付きアクセス（通信可否 社内OK、海外IPはNG等）
+　　　⇒許可するには、MFAを使うか決める等の設定をする
+```
+
+※エンタープライズアプリ
+```text
+Microsoft Teams
+Microsoft Outlook
+Salesforce
+Box　等
+```
+
+作成手順<br>
+Microsoft Entra 管理センター >Entra ID（グループ） >すべてのグループの「新しいグループ」<br>
+必要項目を入力後「作成」
+
+* グループの種類
+
+| 種類            | 用途               |
+| ------------- | ---------------- |
+| Security      | 権限管理             |
+| Microsoft 365 | Teamsや共有メールボックス等 |
+
+* グループ名
+* グループの説明
+* メンバーシップの種類
+```text
+Assigned
+  手動で追加
+
+Dynamic User
+  条件に一致したユーザーを自動追加
+
+Dynamic Device
+  条件に一致したデバイスを自動追加
+```
+
+* グループの削除<br>
+概要上部に削除ボタン<br>
+一覧からは消えるが、すぐには完全削除されない。<br>
+一定期間「論理削除」の状態になる。<br>
+
+* 復元<br>
+削除したグループ >チェックして「グループの復元」<br>
+当時の登録内容のまま、復元される。<br>
+　⇒一覧にない または「完全に削除」を押下すると、元に戻せない
+
+#### グループへのユーザー追加
+ダイレクト メンバー = メンバーの合計数<br>
+所有者は「このグループを管理できる担当者」<br>
+　⇒オンプレADの「Managed By」に近い概念<br>
+　　＝管理者ロールではない<br>
+　　　　グループ所有者 ≠ グローバル管理者<br>
+
+| 項目         | 意味              |
+| ---------- | --------------- |
+| 所有者        | グループを管理できる人     |
+| メンバー       | グループに所属する人      |
+| ダイレクト メンバー | 直接追加されたメンバー     |
+| メンバーの合計数   | グループに所属する全メンバー数 |
+
+
+
+#### パスワードリセット
+Microsoft Entra 管理センター> ユーザー> 対象ユーザークリック<br>
+右上「･･･」 >パスワードのリセット<br>
+
+「パスワードのリセット」を押下し、<br>
+成功後「一時パスワード」を対象ユーザーに伝える。<br>
+PowerShell例：
+```powershell
+Connect-MgGraph -Scopes User.ReadWrite.All
+
+$PasswordProfile = @{
+    Password = "TempPass123!"
+    ForceChangePasswordNextSignIn = $true
+}
+
+Update-MgUser `
+    -UserId testuser@tenant.onmicrosoft.com `
+    -PasswordProfile $PasswordProfile
+```
+
+#### ユーザー無効化
+⇒退職者等の対応<br>
+Microsoft Entra 管理センター> ユーザー> 対象ユーザークリック<br>
+上部「プロパティの編集」 >設定
+
+「アカウントが有効化されました」のチェックボックスのフラグを外し、保存<br>
+PowerShell例：
+```powershell
+Update-MgUser `
+    -UserId testuser@tenant.onmicrosoft.com `
+    -AccountEnabled:$false
+```
+補足 有効化：
+```powershell
+Update-MgUser `
+    -UserId testuser@tenant.onmicrosoft.com `
+    -AccountEnabled:$true
+```
 
 ### 権限管理
+Microsoft Entra 管理センター >（役割と管理者）ロールと管理者 >
 
-* 管理者ロール<br>
-Global Administrator：<br>
+#### 管理者ロール（RBAC）<br> 
+Role Based Access Control（ロールベースアクセス制御）<br>
+ユーザーに直接、権限を与えるのではなく、以下で管理
+```text
+ロール（役割）
+　　↓
+ユーザーへ割り当て
+```
+
+* Global Administrator<br>
 　フルコントロール<br>
-User Administrator：<br>
-　ユーザー管理<br>
-　パスワードリセット<br>
-Helpdesk Administrator：<br>
-　パスワードリセット<br>
+　Windowsの「Administrators グループ」に近い<br>
 
-* グループベース権限
-* アプリケーションへのアクセス権
+できる事
+```text
+ユーザー作成
+ユーザー削除
+グループ管理
+ロール割り当て
+アプリ登録
+ライセンス管理
+認証設定
+条件付きアクセス（P1以上）
+```
 
+* User Administrator<br>
+　ユーザー管理専用管理者<br>
+
+できる事
+```text
+ユーザー作成
+ユーザー削除
+パスワードリセット
+グループ管理
+```
+できない事
+```text
+Global Administrator追加
+認証設定変更
+テナント設定変更
+```
+
+* Helpdesk Administrator：<br>
+　ヘルプデスク向け<br>
+
+できる事
+```text
+パスワードリセット
+サインイン問題対応
+```
+できない事
+```text
+ユーザー作成
+ユーザー削除
+```
+
+#### グループベース権限<br>
+ユーザー毎に権限を付与していった場合、<br>
+人数が増えると管理不能<br>
+その為、作成したグループに対し、権限を設定する。
+
+#### アプリケーションへのアクセス権<br>
+Microsoft Entra 管理センターの<br>
+「エンタープライズ アプリ」で、割り当てる
 ### 多要素認証（MFA［Multi-Factor Authentication］）
 
-* MFAとは、1要素だけではない「異なる要素を組み合わせ」る認証
+MFAとは、1要素だけではない<br>
+「異なる要素を組み合わせ」る認証<br>
+もし、ID（メールアドレス）と、パスワードの組み合わせが<br>
+漏洩しても、悪意あるログインを防げる可能性が高くなる
+
+#### 認証要素の種類<br>
+* 知識情報（Something You Know）<br>
+本人しか知らない情報
+```text
+パスワード
+PINコード
+秘密の質問
+```
+
+* 所持情報（Something You Have）<br>
+本人しか持っていないもの
+```text
+スマートフォン
+認証アプリ
+ICカード
+セキュリティキー
+```
+
+* 生体情報（Something You Are）<br>
+身体的特徴
+```text
+指紋
+顔認証
+虹彩認証
+```
+
+組み合わせのケース：
 ```text
 ID
 +
@@ -193,8 +398,33 @@ ID
 +
 スマホ認証（所持情報や、生体情報）
 ```
-* MFA有効化方法
-* 認証アプリ「Microsoft Authenticator」
+#### MFA有効化方法<br>
+Microsoft Entra 管理センター >認証方法 からセットアップできる<br>
+ユーザー毎に設定できるが、上記では全社設定になる<br>
+
+#### 認証アプリ
+```text
+Microsoft Authenticator
+Google Authenticator 等
+```
+サインイン要否のプッシュ通知や、<br>
+OTP（One Time Password）の確認ができる
+
+#### サインインログの確認
+Microsoft Entra 管理センター >監視と正常性 >サインイン ログ<br>
+確認できる項目 抜粋：
+```text
+日時
+ユーザー
+アプリケーション
+IPアドレス
+場所
+状態
+```
+日時（リンク）をクリックする事で<br>
+「アクティビティの詳細」が確認できる。<br>
+その中の［場所］の詳細で「IPアドレス」や［デバイス情報］で<br>
+「オペレーティング システム」や「デバイス ブラウザー」等の詳細が確認できる。
 
 ## Active Directory
 
