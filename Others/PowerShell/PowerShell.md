@@ -245,3 +245,115 @@ $_(ループ変数)で、順番に処理していく<br>
 Aを.ToLower()で小文字に変換し、abcと出力していく<br>
 「| Select-Object -First 2」等を足す事で、<br>
 出力結果を頭2つまでに絞る事もできる。<br>
+
+## PowerShellの活用例
+#### 連続の疎通確認
+CSVファイル例：
+```csv
+ServerName,IP,Port
+WEB01,192.168.1.10,80
+DB01,192.168.1.20,
+FW01,192.168.1.254,443
+```
+
+Port列が空ならPing、<br>
+Port列があればポート疎通確認：
+```powershell
+# CSV読込
+$targets = Import-Csv .\serverlist.csv
+
+# 疎通確認
+$results = foreach ($target in $targets) {
+
+    # Port列が空ならPing
+    if ([string]::IsNullOrWhiteSpace($target.Port)) {
+
+        $checkType = "Ping"
+
+        $result = Test-Connection `
+            -ComputerName $target.IP `
+            -Count 1 `
+            -Quiet
+
+    }
+    else {
+
+        $checkType = "Port"
+
+        $result = Test-NetConnection `
+            -ComputerName $target.IP `
+            -Port ([int]$target.Port) `
+            -InformationLevel Quiet
+
+    }
+
+    [PSCustomObject]@{
+        Server     = $target.ServerName
+        IP         = $target.IP
+        CheckType  = $checkType
+        Port       = $target.Port
+        Result     = $result
+    }
+}
+
+# NG(False)を先頭に表示
+$results |
+    Sort-Object Result, Server |
+    Format-Table -AutoSize
+
+# CSV出力確認
+$answer = Read-Host "CSV出力しますか？ (Y/N)"
+
+if ($answer.ToUpper() -eq "Y") {
+try {
+
+    $results |
+        Export-Csv `
+            -Path .\result.csv `
+            -NoTypeInformation `
+            -Encoding UTF8 `
+            -ErrorAction Stop
+            　#エラーならcatchに飛ばす処理
+
+    Write-Host "result.csv を出力しました"
+    }
+catch {
+    Write-Host "CSV出力失敗"
+    Write-Host $_.Exception.Message
+}}
+```
+CSV出力は、カット可能
+YorNのEnterキーの後、>> }でもEnterキーを押下する
+　※プロンプトが「>>」の間は入力継続中の意味
+
+#### PowerShellスクリプト（.ps1）保存
+例：<br>
+Check-Network.ps1にコードを記載し、<br>
+PowerShellでの実行は、以下のみにできる
+```powershell
+.\Check-Network.ps1
+```
+但し、コンソール出力用のファイルには、修正が必要
+```powershell
+# CSV読込 置き換え
+$csvPath = Join-Path $PSScriptRoot "serverlist.csv"
+$targets = Import-Csv $csvPath
+```
+```powershell
+# CSV出力確認 ifとtryの間に追記
+$resultPath = Join-Path $PSScriptRoot "result.csv"
+#　補足：出力先を明記したい場合、置き換え
+Write-Host "CSV出力成功: $resultPath"
+```
+「$PSScriptRoot」は、このスクリプト(.ps1)が、<br>
+存在するフォルダを表すので、注意<br>
+cdでディレクトリ変更しても、意図しない場所を指す事があるので注意<br>
+
+配布するのであれば、バッチファイル化もできる<br>
+ファイル例：Check-Network.bat
+```bat
+@echo off
+powershell -ExecutionPolicy Bypass -File Check-Network.ps1
+pause
+```
+文字化けしたら、UTF-8 BOM（Byte Order Mark）で保存しなおす

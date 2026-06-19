@@ -427,6 +427,40 @@ IPアドレス
 「オペレーティング システム」や「デバイス ブラウザー」等の詳細が確認できる。
 
 ## Active Directory
+連携する場合、AD ⇒ Entraの「片方向同期」になる
+```text
+Windows Server［Active Directory Users and Computers（ADUC）］
+　⇒オンプレAD（認証基盤）
+　　CN、OU、DCの一括りで個別のユーザー管理
+
+　⇓ Entra Connect Sync
+
+Microsoft Entra 管理センター
+　⇒クラウド（MicrosoftAzure内）
+　　アカウントの登録内容で、個別のユーザー管理
+　　例：･･･.onmicrosoft.com
+```
+パスワード同期は、Password Hash Synchronization(PHS)
+　⇒ADに登録されたパスワードのハッシュ値を同期
+これでSSO（シングルサインオン）が実現できる
+　※PTA (Pass-through Authentication)
+　　　ログイン時に毎回、ADへ問い合わせる仕組み
+　　　その為、AD環境が停止すると、認証不可になる可能性があり、PHS推奨
+　　Federation (Active Directory Federation Services）
+　　　認証を全て、ADFSサーバへ任せる方式もある
+　　　認証ルールを細かく制御可能だが、構築が大変なので、最近は減少傾向
+　
+OUは同期対象を決められる
+　⇒注意として、OUそのものは、同期されない
+　　ユーザー、グループ、属性が同期対象で、そこに紐付けるイメージ
+GPOはEntraには同期されない
+
+
+
+
+
+
+
 
 ### ADユーザー管理
 CN=ユーザーというオブジェクト管理

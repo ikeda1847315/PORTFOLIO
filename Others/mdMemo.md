@@ -38,3 +38,16 @@ show ip interface brief
 configure terminal
 interface g0/1
 ```
+
+コードブロック指定の例：
+| 指定           | 用途               |
+| ------------ | ---------------- |
+| `powershell` | PowerShell       |
+| `cmd`        | Windowsコマンドプロンプト |
+| `python`     | Python           |
+| `json`       | JSON             |
+| `xml`        | XML              |
+| `yaml`       | YAML             |
+| `csv`        | CSV              |
+| `sql`        | SQL              |
+| `bash`       | Linuxシェル         |
