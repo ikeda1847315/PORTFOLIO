@@ -1,6 +1,33 @@
 ﻿# CSV読込
-$csvPath = Join-Path $PSScriptRoot "serverlist.csv"
-$targets = Import-Csv $csvPath
+# $csvPath = Join-Path $PSScriptRoot "serverlist.csv"
+# $targets = Import-Csv $csvPath
+
+try {
+
+    Add-Type -AssemblyName System.Windows.Forms
+
+    $dialog = New-Object System.Windows.Forms.OpenFileDialog
+    $dialog.Filter = "CSVファイル (*.csv)|*.csv"
+
+    if ($dialog.ShowDialog() -ne "OK") {
+        Write-Host "キャンセルされました"
+        exit
+    }
+
+    $csvPath = $dialog.FileName
+
+    $targets = Import-Csv `
+        -Path $csvPath `
+        -ErrorAction Stop
+
+}
+catch {
+
+    Write-Host "CSV読込失敗"
+    Write-Host $_.Exception.Message
+    exit
+
+}
 
 # 疎通確認
 $results = foreach ($target in $targets) {
@@ -45,8 +72,13 @@ $results |
 $answer = Read-Host "CSV出力しますか？ (Y/N)"
 
 if ($answer.ToUpper() -eq "Y") {
-    $resultPath = Join-Path $PSScriptRoot "result.csv"
-try {
+    # $resultPath = Join-Path $PSScriptRoot "result.csv"
+    # 入力CSVと同じフォルダに出力し、結果ファイル名に日時を付ける
+    $timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
+    $resultPath = Join-Path `
+        (Split-Path $csvPath) `
+        "result_$timestamp.csv"
+    try {
 
     $results |
         Export-Csv `

@@ -357,3 +357,58 @@ powershell -ExecutionPolicy Bypass -File Check-Network.ps1
 pause
 ```
 文字化けしたら、UTF-8 BOM（Byte Order Mark）で保存しなおす
+
+ファイルを選択方式に変更：
+ドラッグ＆ドロップ方式：
+```powershell
+$csvPath = Read-Host "CSVファイルをドラッグ＆ドロップしてEnter"
+$targets = Import-Csv $csvPath -ErrorAction Stop
+```
+⇒PowerShell画面にファイルをドラッグ＆ドロップする事で、
+PowerShellが自動的にパスを入力してくれる
+
+ファイル選択ダイアログ方式：
+```powershell
+Add-Type -AssemblyName System.Windows.Forms
+
+$dialog = New-Object System.Windows.Forms.OpenFileDialog
+$dialog.Filter = "CSVファイル (*.csv)|*.csv"
+
+if ($dialog.ShowDialog() -eq "OK") {
+    $csvPath = $dialog.FileName
+    $targets = Import-Csv $csvPath
+}
+```
+エクスプローラーの「ファイルを開く」画面が表示されるので、そちらで選択。
+
+複合：
+```powershell
+$csvPath = Read-Host "ドラッグ＆ドロップ（空ならダイアログ起動）"
+
+if ([string]::IsNullOrWhiteSpace($csvPath)) {
+
+    Add-Type -AssemblyName System.Windows.Forms
+
+    $dialog = New-Object System.Windows.Forms.OpenFileDialog
+    $dialog.Filter = "CSVファイル (*.csv)|*.csv"
+
+    if ($dialog.ShowDialog() -eq "OK") {
+        $csvPath = $dialog.FileName
+    }
+    else {
+        Write-Host "キャンセルされました"
+        exit
+    }
+}
+
+$targets = Import-Csv $csvPath
+```
+⇒利用者が直感的にドラッグ＆ドロップに対応できるか
+不明な場合は、ダイアログ対応が無難
+
+
+
+
+
+
+
