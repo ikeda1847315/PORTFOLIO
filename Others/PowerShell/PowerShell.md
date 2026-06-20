@@ -322,8 +322,8 @@ catch {
     Write-Host $_.Exception.Message
 }}
 ```
-CSV出力は、カット可能
-YorNのEnterキーの後、>> }でもEnterキーを押下する
+CSV出力は、カット可能<br>
+YorNのEnterキーの後、>> }でもEnterキーを押下する<br>
 　※プロンプトが「>>」の間は入力継続中の意味
 
 #### PowerShellスクリプト（.ps1）保存
@@ -358,13 +358,13 @@ pause
 ```
 文字化けしたら、UTF-8 BOM（Byte Order Mark）で保存しなおす
 
-ファイルを選択方式に変更：
+#### ファイルを選択方式に変更
 ドラッグ＆ドロップ方式：
 ```powershell
 $csvPath = Read-Host "CSVファイルをドラッグ＆ドロップしてEnter"
 $targets = Import-Csv $csvPath -ErrorAction Stop
 ```
-⇒PowerShell画面にファイルをドラッグ＆ドロップする事で、
+⇒PowerShell画面にファイルをドラッグ＆ドロップする事で、<br>
 PowerShellが自動的にパスを入力してくれる
 
 ファイル選択ダイアログ方式：
@@ -403,12 +403,5 @@ if ([string]::IsNullOrWhiteSpace($csvPath)) {
 
 $targets = Import-Csv $csvPath
 ```
-⇒利用者が直感的にドラッグ＆ドロップに対応できるか
+⇒利用者が直感的にドラッグ＆ドロップに対応できるか<br>
 不明な場合は、ダイアログ対応が無難
-
-
-
-
-
-
-
