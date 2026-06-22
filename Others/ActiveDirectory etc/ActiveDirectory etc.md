@@ -477,7 +477,7 @@ Windows Server［Active Directory Users and Computers（ADUC）］
 　⇒オンプレAD（認証基盤）
 　　CN、OU、DCの一括りで個別のユーザー管理
 
-　⇓ Entra Connect Sync
+　⇓ Entra Connect Sync（旧Azure AD Connect）
 
 Microsoft Entra 管理センター
 　⇒クラウド（MicrosoftAzure内）
