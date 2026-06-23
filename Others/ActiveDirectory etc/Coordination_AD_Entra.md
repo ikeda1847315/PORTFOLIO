@@ -51,6 +51,165 @@ Get-ADOrganizationalUnit `
 -Filter 'Name -eq "登録した名前"'
 ```
 
+#### 同期用ユーザーデータ作成
+　⇒[Test.csv](Others/ActiveDirectory%20etc/Test.csv)
+```PowerShell
+Import-Module ActiveDirectory
+
+$Users = Import-Csv C:\AD\Test.csv
+
+
+foreach ($User in $Users) {
+
+    $SecurePassword = ConvertTo-SecureString `
+        $User.Password `
+        -AsPlainText `
+        -Force
+
+
+    New-ADUser `
+        -SamAccountName $User.SamAccountName `
+        -UserPrincipalName $User.UserPrincipalName `
+        -Name $User.Name `
+        -DisplayName $User.DisplayName `
+        -GivenName $User.GivenName `
+        -Surname $User.Surname `
+        -Initials $User.Initials `
+        -Description $User.Description `
+        -Department $User.Department `
+        -Title $User.Title `
+        -Company $User.Company `
+        -Office $User.Office `
+        -OfficePhone $User.OfficePhone `
+        -MobilePhone $User.MobilePhone `
+        -EmailAddress $User.EmailAddress `
+        -StreetAddress $User.StreetAddress `
+        -City $User.City `
+        -State $User.State `
+        -PostalCode $User.PostalCode `
+        -Country $User.Country `
+        -EmployeeID $User.EmployeeID `
+        -AccountPassword $SecurePassword `
+        -Path $User.OU `
+        -Enabled $true
+        -ChangePasswordAtLogon $true
+}
+```
+
+| CSV項目           | New-ADUserパラメータ | AD属性                     | 意味                |
+| ----------------- | ------------------ | -------------------------- | ----------------- |
+| SamAccountName    | -SamAccountName    | sAMAccountName             | Windowsログオン名（旧形式） |
+| UserPrincipalName | -UserPrincipalName | userPrincipalName          | ユーザーログオン名（UPN形式）  |
+| Name              | -Name              | Name                       | ADオブジェクト名（CN）＝ AD内部名が変わる 　|
+| DisplayName       | -DisplayName       | displayName                | 表示名（Entra IDの表示名） |
+| GivenName         | -GivenName         | givenName                  | 名（ファーストネーム）  |
+| Surname           | -Surname           | sn                         | 姓 （ラストネーム）    |
+| Department        | -Department        | department                 | 部署                |
+| Title             | -Title             | title                      | 役職                |
+| Company           | -Company           | company                    | 会社名               |
+| Office            | -Office            | physicalDeliveryOfficeName | 勤務場所              |
+| OfficePhone       | -OfficePhone       | telephoneNumber            | 会社の電話番号              |
+| MobilePhone       | -MobilePhone       | mobile                     | 携帯電話番号            |
+| EmailAddress      | -EmailAddress      | mail                       | メールアドレス           |
+| StreetAddress     | -StreetAddress     | streetAddress              | 住所                |
+| City              | -City              | l                          | 市区町村              |
+| State             | -State             | st                         | 都道府県              |
+| PostalCode        | -PostalCode        | postalCode                 | 郵便番号              |
+| EmployeeID        | -EmployeeID        | employeeID                 | 社員番号              |
+| OU       | -Path            | distinguishedName | ユーザーを作成する配置場所（OU）       |
+| Password | -AccountPassword | -                 | 初期パスワード（AD属性として直接、保持しない） |
+
+※$SecurePasswordについて
+New-ADUserの「-AccountPassword」は、SecureString型を要求する
+その為、ConvertTo-SecureStringのコマンドを用い、通常の文字列（String）を
+暗号化されたパスワード形式（SecureString）へ変換する
+
+通常、ConvertTo-SecureStringは、暗号化された文字列を戻す用途がある
+その為、PowerShellは「これは暗号化されたデータ」という前提で処理する
+　例：ConvertTo-SecureString "暗号化済み文字列"
+
+もし、平文（Plain Text）で処理する場合は、-AsPlainTextをつけ、
+入力値は暗号化済みではなく、普通の文字列という指定を入れる
+また、-AsPlainTextを利用すると、PowerShellは警告する為、
+強制的に許可する場合に、-Forceを付ける。
+　⇒次回ログイン時にパスワード変更を強要するのが望ましい
+　　　-ChangePasswordAtLogon $true
+
+パスワード生成スクリプト化を用いる場合：
+```PowerShell
+function New-RandomPassword {
+      # パスワード生成に利用する文字一覧
+    $chars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ0123456789!@#$"
+         #　-join：複数の文字を「1つの文字列」として結合する
+         #  1..12 | ForEach-Object：12回繰り返す
+         #  Get-Random -Maximum $chars.Length：$chars[○○]生成の際、
+         #　○○をランダムな数字（$chars.Length範囲内）で取得する
+    -join (1..12 | ForEach-Object {
+        $chars[(Get-Random -Maximum $chars.Length)]
+    })
+}
+
+$PasswordList = @()
+
+foreach ($User in $Users) {
+
+    # ランダムパスワード生成
+    $Password = New-RandomPassword
+
+    # SecureString変換
+    $SecurePassword = ConvertTo-SecureString `
+        $Password `
+        -AsPlainText `
+        -Force
+
+    # ADユーザー作成
+    New-ADUser `
+    　　・・・
+      -ChangePasswordAtLogon $true 
+
+    # 初期パスワード記録
+    $PasswordList += [PSCustomObject]@{
+        SamAccountName  = $User.SamAccountName
+        DisplayName     = $User.DisplayName
+        InitialPassword = $Password
+    }
+}
+
+# 初期パスワードCSV出力
+$PasswordList | Export-Csv `
+    "C:\AD\InitialPassword.csv" `
+    -NoTypeInformation `
+    -Encoding UTF8
+```
+⇒「偶然同じ文字が続く」や「記号が含まれていない」等<br>
+　の可能性を排除できないので注意
+
+補足：<br>
+必須文字がある場合、固定値で最初に組み込み、<br>
+残りをランダムで処理とする方法がある<br>
+連続禁止のメソッドにするのであれば、以下の方法になる
+```PowerShell
+function New-RandomPassword {
+
+    $chars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ0123456789!@#$"
+
+    $Password = ""
+
+    while ($Password.Length -lt 12) {
+
+        $NewChar = $chars[(Get-Random -Maximum $chars.Length)]
+
+        # 直前の文字と同じならやり直し
+        if ($Password.Length -eq 0 -or 
+            $Password[$Password.Length - 1] -ne $NewChar) {
+            $Password += $NewChar
+        }
+    }
+
+    return $Password
+}
+```
+
 #### UPN（User Principal Name）とは
 2種類のログオン名がある
 ```text
@@ -171,9 +330,9 @@ Get-ADUser アカウント名 `
 -Properties Enabled,LockedOut,PasswordExpired |
 Select Name,Enabled,LockedOut,PasswordExpired
 ```
-⇒LockedOut：Trueはロック中
-　他、Enabled：True＝アカウント有効
-　PasswordExpired=False：パスワード期限切れなし
+⇒LockedOut：Trueはロック中<br>
+　他、Enabled：True＝アカウント有効<br>
+　PasswordExpired=False：パスワード期限切れなし<br>
 
 アカウントロック解除
 ```PowerShell

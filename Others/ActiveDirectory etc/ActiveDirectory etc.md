@@ -506,7 +506,7 @@ GPOはEntraに同期されない
 ### ADユーザー管理
 CN=ユーザーというオブジェクト管理
 
-* ユーザー作成<br>
+* 既存ユーザーの照会（取得）<br>
 　　Get-ADUser yamada<br>
 * 無効化（無効化するとログインできない）<br>
 　　Disable-ADAccount<br>
