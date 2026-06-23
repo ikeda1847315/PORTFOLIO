@@ -1,4 +1,1 @@
-SamAccountName,UserPrincipalName,DisplayName,GivenName,Surname,Department,Title,Office,TelephoneNumber,MobilePhone,Password,OU
-tanaka.t,[t.tanaka@company.local](mailto:t.tanaka@company.local),田中 太郎,太郎,田中,営業部,主任,東京本社,03-1111-1111,090-1111-1111,P@ssw0rd!,"OU=EntraSync,DC=company,DC=local"
-suzuki.h,[h.suzuki@company.local](mailto:h.suzuki@company.local),鈴木 花子,花子,鈴木,総務部,係長,名古屋支社,052-222-2222,090-2222-2222,P@ssw0rd!,"OU=EntraSync,DC=company,DC=local"
-sato.k,[k.sato@company.local](mailto:k.sato@company.local),佐藤 恒一,恒一,佐藤,開発部,課長,大阪開発センター,06-3333-3333,090-3333-3333,P@ssw0rd!,"OU=EntraSync,DC=company,DC=local"
+SamAccountName,UserPrincipalName,Name,DisplayName,GivenName,Surname,Initials,Description,Department,Title,Company,Office,OfficePhone,MobilePhone,EmailAddress,StreetAddress,City,State,PostalCode,Country,EmployeeID,Password,OU
