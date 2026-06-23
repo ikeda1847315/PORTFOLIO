@@ -38,7 +38,21 @@ ADの構造
 * Domains<br>
    　⇒ADで管理しているドメイン
 * UPNSuffixes<br>
-   　⇒ユーザーがログイン時に利用できるUPNサフィックスの追加一覧
+　⇒ユーザーが利用できる追加UPNサフィックス一覧<br>
+　　{}の場合は、フォレストに追加のUPNサフィックスが定義されていない<br>
+　　＝利用可能なUPNサフィックスがドメイン名になる<br>
+　　　※FSMO（Flexible Single Master Operations）<br>
+  　　　　特定の重要な処理だけを、1台のDCに担当させるための役割（ロール）<br>
+　　　　　　・新しいドメインを追加する<br>
+　　　　　　・RID（セキュリティ識別子）を発行する<br>
+　　　　　　・時刻同期の基準になる<br>
+
+  　　　　FSMOの5つの役割：<br>
+　　　　　　1. Schema Master（スキーママスター）<br>
+　　　　　　2. Domain Naming Master（ドメイン名前付けマスター）<br>
+　　　　　　3. RID Master（RIDマスター）<br>
+　　　　　　4. PDC Emulator（PDCエミュレーター）<br>
+　　　　　　5. Infrastructure Master（インフラストラクチャマスター）<br>
 
 #### 同期用OU作成
 サーバー マネージャー >ツール >Active Directory ユーザーとコンピューター
@@ -52,7 +66,8 @@ Get-ADOrganizationalUnit `
 ```
 
 #### 同期用ユーザーデータ作成
-　⇒[Test.csv](Others/ActiveDirectory%20etc/Test.csv)
+　⇒[Test.csv](https://github.com/ikeda1847315/PORTFOLIO/blob/main/Others/ActiveDirectory%20etc/Test.csv)
+ 
 ```PowerShell
 Import-Module ActiveDirectory
 
@@ -119,23 +134,23 @@ foreach ($User in $Users) {
 | OU       | -Path            | distinguishedName | ユーザーを作成する配置場所（OU）       |
 | Password | -AccountPassword | -                 | 初期パスワード（AD属性として直接、保持しない） |
 
-※$SecurePasswordについて
-New-ADUserの「-AccountPassword」は、SecureString型を要求する
-その為、ConvertTo-SecureStringのコマンドを用い、通常の文字列（String）を
-暗号化されたパスワード形式（SecureString）へ変換する
+##### $SecurePasswordについて<br>
+New-ADUserの「-AccountPassword」は、SecureString型を要求する<br>
+その為、ConvertTo-SecureStringのコマンドを用い、通常の文字列（String）を<br>
+暗号化されたパスワード形式（SecureString）へ変換する<br>
 
-通常、ConvertTo-SecureStringは、暗号化された文字列を戻す用途がある
-その為、PowerShellは「これは暗号化されたデータ」という前提で処理する
-　例：ConvertTo-SecureString "暗号化済み文字列"
+通常、ConvertTo-SecureStringは、暗号化された文字列を戻す用途がある<br>
+その為、PowerShellは「これは暗号化されたデータ」という前提で処理する<br>
+　例：ConvertTo-SecureString "暗号化済み文字列"<br>
 
-もし、平文（Plain Text）で処理する場合は、-AsPlainTextをつけ、
-入力値は暗号化済みではなく、普通の文字列という指定を入れる
-また、-AsPlainTextを利用すると、PowerShellは警告する為、
-強制的に許可する場合に、-Forceを付ける。
-　⇒次回ログイン時にパスワード変更を強要するのが望ましい
-　　　-ChangePasswordAtLogon $true
+もし、平文（Plain Text）で処理する場合は、-AsPlainTextをつけ、<br>
+入力値は暗号化済みではなく、普通の文字列という指定を入れる<br>
+また、-AsPlainTextを利用すると、PowerShellは警告する為、<br>
+強制的に許可する場合に、-Forceを付ける。<br>
+　⇒次回ログイン時にパスワード変更を強要するのが望ましい<br>
+　　　-ChangePasswordAtLogon $true<br>
 
-パスワード生成スクリプト化を用いる場合：
+パスワード生成スクリプト化を用いる場合：<br>
 ```PowerShell
 function New-RandomPassword {
       # パスワード生成に利用する文字一覧
@@ -182,12 +197,12 @@ $PasswordList | Export-Csv `
     -Encoding UTF8
 ```
 ⇒「偶然同じ文字が続く」や「記号が含まれていない」等<br>
-　の可能性を排除できないので注意
+　の可能性を排除できないので注意<br>
 
 補足：<br>
 必須文字がある場合、固定値で最初に組み込み、<br>
 残りをランダムで処理とする方法がある<br>
-連続禁止のメソッドにするのであれば、以下の方法になる
+連続禁止のメソッドにするのであれば、以下の方法になる<br>
 ```PowerShell
 function New-RandomPassword {
 
