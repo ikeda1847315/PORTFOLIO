@@ -31,7 +31,7 @@ ADの構造
 ├─ ドメインはいくつ？（Domains）
 ├─ UPNサフィックスは？（UPNSuffixes）
 ├─ グローバルカタログは？（GlobalCatalogs ＝ DCの数）
-└─ FSMOはどこ？（UPNSuffixes）
+└─ UPNSuffixesの設定はあるか？（FSMOの役割の一部）
 ```
 * 複数ドメインだったり、複数フォレストでないか確認する<br>
 　 ⇒複数の場合、Entra Connectの設定が複雑になる
@@ -106,7 +106,7 @@ foreach ($User in $Users) {
         -EmployeeID $User.EmployeeID `
         -AccountPassword $SecurePassword `
         -Path $User.OU `
-        -Enabled $true
+        -Enabled $true `
         -ChangePasswordAtLogon $true
 }
 ```
@@ -201,7 +201,8 @@ $PasswordList | Export-Csv `
 
 補足：<br>
 必須文字がある場合、固定値で最初に組み込み、<br>
-残りをランダムで処理とする方法がある<br>
+残りをランダムで処理するや、パーツごとに<br>
+「Get-Random」して、結合する方法がある<br>
 連続禁止のメソッドにするのであれば、以下の方法になる<br>
 ```PowerShell
 function New-RandomPassword {
@@ -237,6 +238,10 @@ NetBIOSName\sAMAccountName ：Down-Level Logon Name
 sAMAccountName@UPNSuffixes ：UPN
 　⇒表記上の見分けとして記載しているが、
 　　本来はこれ１つでUserPrincipalName (UPN)扱い
+　　　※厳密には「sAMAccountName」と
+　　　　「UPNの左側（ユーザー接頭辞）」は、
+　　　　全く別の属性として独立している。
+　　　　但し、同じ文字列に設定することが推奨されている。
 ```
 sAMAccountName一覧出力：
 ```PowerShell
@@ -252,7 +257,9 @@ Get-ADUser ○○ -Properties UserPrincipalName,sAMAccountName
 今回は、DCと兼務<br>
 しかし、Entra Connectは、オンプレADとEntra IDを<br>
 つなぐ非常に重要なシステムの為、<br>
-一般的には、役割を分離で、分けて準備する事が多い。（冗長化含む）<br>
+ドメインコントローラー（DC）へのEntraConnectの<br>
+インストールは非推奨（サポートはされるが強く推奨されない）<br>
+一般的には、役割を分離で、分けて準備する（冗長化含む）<br>
 　⇒Entra Connectには「ADへの権限」と「Entraへの権限」の両方が必要<br>
 ```text
 サーバー障害：AD認証停止と、同期停止が同時発生
