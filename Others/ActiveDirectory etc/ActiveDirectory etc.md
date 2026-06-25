@@ -314,7 +314,7 @@ Update-MgUser `
 ```
 
 ### 権限管理
-Microsoft Entra 管理センター >（役割と管理者）ロールと管理者 >
+Microsoft Entra 管理センター >（役割と管理者）ロールと管理者
 
 #### 管理者ロール（RBAC）<br> 
 Role Based Access Control（ロールベースアクセス制御）<br>
@@ -459,19 +459,32 @@ IPアドレス
 故障等の障害で、認証不可になるのを防ぐ為、<br>
 2台以上の複数DCで運用する事が多い。<br>
 複数DCの場合、データ同期処理として、<br>
-レプリケーションされる（＝冗長化）
+レプリケーションされる（＝冗長化）<br>
 
-例として「company.local」というADドメインを作った場合、<br>
-内部的には以下の形式で管理される
+ユーザーが登録されていて、階層があるOU（組織単位）を作成した場合、<br>
+次のようなLDAP（Lightweight Directory Access Protocol）形式で管理される<br>
+　※LDAP形式：LDAPディレクトリ内で、オブジェクトの場所を表す<br>
+　　DN（Distinguished Name）の記述形式<br>
+　　組織内のユーザーやコンピュータなどの情報を階層的に管理し、<br>
+　　検索・認証するための標準プロトコル
 ```text
-DC=company
-DC=local
-　※このDCは「Domain Component」
-```
-配下にOUを作成した場合、LDAP形式では<br>
-「OU=○○,DC=company,DC=local」になる。
+例：
+ユーザー名: taro
+OU: Nagoya
+親OU: Japan
+ドメイン: example.local
 
-クラウド連携する場合、AD ⇒ Entraの「片方向同期」になる
+CN=taro,OU=Nagoya,OU=Japan,DC=example,DC=local
+　⇒CN=<ユーザー名>,OU=<OU名>,OU=<親OU名>,DC=<ドメイン名>,DC=<トップレベルドメイン>
+　　LDAPでは 下位オブジェクトから、上位オブジェクトへの順で記述する。
+
+参考：
+CN = Common Name（ユーザー名やコンピュータ名）
+OU = Organizational Unit
+DC = Domain Component
+```
+
+クラウド連携する場合、AD ⇒ Entraの「片方向同期」になる<br>
 ```text
 Windows Server［Active Directory Users and Computers（ADUC）］
 　⇒オンプレAD（認証基盤）
